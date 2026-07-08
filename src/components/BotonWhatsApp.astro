@@ -1,0 +1,22 @@
+---
+/* ==========================================================================
+   BOTON WHATSAPP — Boton flotante circular (esquina inferior derecha)
+   Aparece en todas las paginas (se incluye desde BaseLayout).
+   Solo icono, para no competir con el CTA del header.
+   ========================================================================== */
+import { site, waHref } from '../config/site';
+import IconoWA from './IconoWA.astro';
+
+const mensaje = `Hola ${site.nombreCorto}, quisiera mas informacion.`;
+---
+
+<a
+  href={waHref(mensaje)}
+  target="_blank"
+  rel="noopener"
+  class="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg ring-1 ring-black/5 transition-transform hover:scale-110 focus-visible:scale-110"
+  aria-label="Escribirnos por WhatsApp"
+  title="Escribirnos por WhatsApp"
+>
+  <IconoWA size={30} />
+</a>

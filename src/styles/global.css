@@ -1,0 +1,184 @@
+/* ==========================================================================
+   GLOBAL.CSS — Estilos base + TOKENS DE MARCA
+   --------------------------------------------------------------------------
+   Este es el UNICO archivo donde necesitas tocar la paleta y las tipografias.
+   Cambia los valores del bloque @theme y todo el sitio se actualiza.
+   ========================================================================== */
+
+@import 'tailwindcss';
+
+/* --------------------------------------------------------------------------
+   TOKENS DE MARCA
+   Cada variable genera utilidades de Tailwind automaticamente, por ejemplo:
+     --color-marca-primario  ->  bg-marca-primario, text-marca-primario, border-marca-primario
+     --font-display           ->  font-display
+   -------------------------------------------------------------------------- */
+@theme {
+  /* Paleta corporativa HP&K (tomada del logo y el brochure 2026)
+     Azul marino profundo + turquesa/cian.
+     ----------------------------------- */
+  --color-marca-primario: #1e2a5e; /* Azul marino HP&K: header, footer, titulos, CTAs */
+  --color-marca-primario-claro: #2c3a78; /* Variante para hover sobre fondos oscuros */
+  --color-marca-secundario: #4a5568; /* Gris industrial: texto secundario, iconos, bordes */
+  --color-marca-acento: #1499c6; /* Turquesa HP&K: enlaces, detalles y palabras resaltadas */
+  --color-marca-acento-claro: #2bb6dc; /* Hover del acento */
+  --color-marca-resalte: #4fc3e8; /* Cian claro: palabra resaltada en titulos sobre fondo oscuro */
+
+  /* Neutros */
+  --color-marca-tinta: #1a202c; /* Texto principal (casi negro) */
+  --color-marca-niebla: #f7fafc; /* Fondo de secciones alternas */
+  --color-marca-borde: #e2e8f0; /* Lineas y separadores */
+
+  /* Tipografias (empaquetadas con Fontsource, importadas en BaseLayout.astro) */
+  --font-display: 'Bebas Neue', ui-sans-serif, system-ui, sans-serif; /* Titulos */
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif; /* Cuerpo */
+}
+
+/* --------------------------------------------------------------------------
+   ESTILOS BASE
+   -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-marca-tinta);
+    background-color: #ffffff;
+    line-height: 1.65;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-marca-primario);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+  }
+
+  /* Foco accesible y coherente con la marca */
+  :focus-visible {
+    outline: 2px solid var(--color-marca-acento);
+    outline-offset: 2px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   COMPONENTES UTILITARIOS REUTILIZABLES
+   -------------------------------------------------------------------------- */
+@layer components {
+  /* Contenedor central con ancho maximo y padding responsivo */
+  .contenedor {
+    width: 100%;
+    max-width: 80rem; /* 1280px */
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .contenedor {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* Espaciado vertical estandar de secciones (mucho aire) */
+  .seccion {
+    padding-block: 4rem;
+  }
+  @media (min-width: 768px) {
+    .seccion {
+      padding-block: 6rem;
+    }
+  }
+
+  /* Boton primario sobrio */
+  .btn-primario {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--color-marca-primario);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.2s ease;
+  }
+  .btn-primario:hover {
+    background-color: var(--color-marca-primario-claro);
+  }
+
+  /* Boton secundario (contorno) */
+  .btn-secundario {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--color-marca-borde);
+    color: var(--color-marca-primario);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .btn-secundario:hover {
+    border-color: var(--color-marca-acento);
+    background-color: var(--color-marca-niebla);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   ANIMACIONES
+   - Giro del pinon (preloader).
+   - Aparicion al hacer scroll (data-reveal).
+   - Todo se desactiva si el usuario prefiere menos movimiento.
+   -------------------------------------------------------------------------- */
+@layer utilities {
+  /* Giro continuo (pinon del preloader y acentos) */
+  @keyframes girar {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .animar-giro {
+    animation: girar 3.2s linear infinite;
+    transform-origin: 50% 50%;
+  }
+  .animar-giro-inverso {
+    animation: girar 4.5s linear infinite reverse;
+    transform-origin: 50% 50%;
+  }
+
+  /* Aparicion al entrar en pantalla: estado inicial */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  /* Estado visible (lo agrega el observador de scroll) */
+  [data-reveal].es-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Respeto por accesibilidad: sin movimiento si el sistema lo pide */
+@media (prefers-reduced-motion: reduce) {
+  .animar-giro,
+  .animar-giro-inverso {
+    animation: none;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

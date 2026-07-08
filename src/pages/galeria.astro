@@ -1,0 +1,46 @@
+---
+/* ==========================================================================
+   PAGINA: GALERIA
+   Muestra las fotos definidas en site.ts -> galeria (archivos en
+   src/assets/galeria/). Incluye lightbox para ampliar cada imagen.
+   ========================================================================== */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Galeria from '../components/Galeria.astro';
+import { site } from '../config/site';
+import { existeFotoGaleria } from '../lib/imagenes';
+
+// Cuantas fotos reales hay (para mostrar un aviso si todavia son placeholders).
+const reales = site.galeria.filter((f) => existeFotoGaleria(f.archivo)).length;
+---
+
+<BaseLayout
+  titulo="Galeria"
+  descripcion="Galeria de trabajos, taller y equipo de HP&K Inversiones S.R.L. en Arequipa: mantenimiento de maquinaria, reparacion de componentes y maquinado."
+  palabrasClave={['galeria de trabajos', 'taller de mantenimiento Arequipa']}
+>
+  <section class="border-b border-marca-borde bg-marca-niebla">
+    <div class="contenedor py-16 md:py-20">
+      <SectionHeading
+        etiqueta="Galeria"
+        titulo="Nuestro trabajo en imagenes"
+        descripcion="Taller, trabajos realizados y equipo de HP&K Inversiones."
+        icono="mdi:image-multiple-outline"
+      />
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="contenedor">
+      {
+        reales === 0 && (
+          <p class="mb-8 rounded-lg border border-dashed border-marca-borde bg-marca-niebla p-4 text-sm text-marca-secundario">
+            Las imagenes mostradas son marcadores de posicion. Para publicar las fotos reales,
+            colocalas en <code>src/assets/galeria/</code> (ver el archivo <code>LEEME.txt</code> de esa carpeta).
+          </p>
+        )
+      }
+      <Galeria />
+    </div>
+  </section>
+</BaseLayout>

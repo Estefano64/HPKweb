@@ -1,0 +1,58 @@
+---
+/* ==========================================================================
+   SECTION HEADING — Encabezado de seccion reutilizable
+   Soporta un icono (mdi) opcional y anima su aparicion al hacer scroll.
+   ========================================================================== */
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  /** Pequena etiqueta superior (opcional) */
+  etiqueta?: string;
+  /** Titulo de la seccion */
+  titulo: string;
+  /** Texto descriptivo bajo el titulo (opcional) */
+  descripcion?: string;
+  /** Centrar el contenido */
+  centrado?: boolean;
+  /** Icono mdi opcional mostrado como insignia (p. ej. "mdi:cog-outline") */
+  icono?: string;
+  /** Color claro para usar sobre fondos oscuros */
+  claro?: boolean;
+}
+const { etiqueta, titulo, descripcion, centrado = false, icono, claro = false } = Astro.props;
+---
+
+<div class:list={['max-w-3xl', centrado && 'mx-auto text-center']} data-reveal>
+  {
+    icono && (
+      <span
+        class:list={[
+          'mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl',
+          claro ? 'bg-white/10 text-marca-resalte' : 'bg-marca-primario text-marca-resalte',
+        ]}
+      >
+        <Icon name={icono} class="h-6 w-6" />
+      </span>
+    )
+  }
+  {
+    etiqueta && (
+      <p
+        class:list={[
+          'mb-3 text-sm font-semibold uppercase tracking-widest',
+          claro ? 'text-marca-resalte' : 'text-marca-acento',
+        ]}
+      >
+        {etiqueta}
+      </p>
+    )
+  }
+  <h2 class:list={['text-3xl font-bold md:text-4xl', claro && 'text-white']}>{titulo}</h2>
+  {
+    descripcion && (
+      <p class:list={['mt-4 text-lg', claro ? 'text-white/75' : 'text-marca-secundario']}>
+        {descripcion}
+      </p>
+    )
+  }
+</div>

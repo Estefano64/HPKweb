@@ -1,0 +1,83 @@
+---
+/* ==========================================================================
+   PAGINA: REPUESTOS
+   Catalogo por categorias. Cada tarjeta tiene un boton "Pedir por WhatsApp"
+   que abre el chat con el pedido prellenado. Los datos salen de
+   site.ts -> repuestos.
+   ========================================================================== */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import RepuestoCard from '../components/RepuestoCard.astro';
+import IconoWA from '../components/IconoWA.astro';
+import { Icon } from 'astro-icon/components';
+import { site, waHref } from '../config/site';
+
+const waGeneral = waHref(
+  `Hola ${site.nombreCorto}, quisiera cotizar un repuesto. Marca/modelo de equipo: ... | Pieza: ...`
+);
+---
+
+<BaseLayout
+  titulo="Repuestos"
+  descripcion="Venta de repuestos, partes y accesorios para maquinaria pesada e industrial en Arequipa: hidraulicos, tren de rodaje, motor, piezas de desgaste y mas. Cotice por WhatsApp."
+  palabrasClave={['venta de repuestos mineros', 'repuestos maquinaria pesada Arequipa', 'cotizar repuestos por WhatsApp']}
+>
+  <section class="border-b border-marca-borde bg-marca-niebla">
+    <div class="contenedor py-16 md:py-20">
+      <SectionHeading
+        etiqueta="Repuestos"
+        titulo="Repuestos y componentes para su maquinaria"
+        descripcion="Suministramos partes, piezas y accesorios para los sectores minero e industrial. Pida su cotizacion directamente por WhatsApp: respondemos rapido."
+        icono="mdi:cog-box"
+      />
+      <a href={waGeneral} target="_blank" rel="noopener" class="btn-primario mt-8 whitespace-nowrap !bg-[#25D366] hover:!bg-[#1da851]">
+        <IconoWA size={18} />
+        Pedir un repuesto por WhatsApp
+      </a>
+    </div>
+  </section>
+
+  {/* Catalogo por categorias */}
+  <section class="seccion">
+    <div class="contenedor">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          site.repuestos.map((categoria, i) => (
+            <div data-reveal style={`--reveal-delay:${(i % 3) * 110}ms`}>
+              <RepuestoCard categoria={categoria} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Como pedir */}
+  <section class="seccion bg-marca-niebla">
+    <div class="contenedor">
+      <SectionHeading etiqueta="Como pedir" titulo="Cotizar es muy facil" icono="mdi:cursor-default-click-outline" centrado />
+      <ol class="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-3">
+        {
+          [
+            { n: '1', t: 'Identifique la pieza', d: 'Tenga a mano la marca y modelo del equipo y, si puede, el numero de parte o una foto.', icono: 'mdi:magnify' },
+            { n: '2', t: 'Escribanos por WhatsApp', d: 'Pulse "Pedir por WhatsApp" en la categoria o use el boton general. El mensaje va prellenado.', icono: 'mdi:whatsapp' },
+            { n: '3', t: 'Reciba su cotizacion', d: 'Confirmamos disponibilidad, precio y tiempo de entrega a la brevedad.', icono: 'mdi:file-check-outline' },
+          ].map((p, i) => (
+            <li
+              class="relative rounded-lg border border-marca-borde bg-white p-6"
+              data-reveal
+              style={`--reveal-delay:${i * 110}ms`}
+            >
+              <span class="absolute right-5 top-5 font-display text-4xl text-marca-borde">{p.n}</span>
+              <span class="flex h-12 w-12 items-center justify-center rounded-lg bg-marca-primario text-marca-resalte">
+                <Icon name={p.icono} class="h-6 w-6" />
+              </span>
+              <h3 class="mt-4 text-lg font-bold">{p.t}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-marca-secundario">{p.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+</BaseLayout>

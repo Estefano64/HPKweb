@@ -1,0 +1,41 @@
+---
+/* ==========================================================================
+   STATS BAND — Franja de cifras / credibilidad (fondo azul de marca)
+   Recibe { valor, etiqueta, icono? } y los muestra en columnas con icono.
+   ========================================================================== */
+import { Icon } from 'astro-icon/components';
+
+interface Cifra {
+  valor: string;
+  etiqueta: string;
+  /** Nombre de icono mdi (opcional), p. ej. "mdi:clock-outline" */
+  icono?: string;
+}
+interface Props {
+  cifras: Cifra[];
+}
+const { cifras } = Astro.props;
+---
+
+<section class="bg-marca-primario">
+  <dl class="contenedor grid grid-cols-2 gap-y-10 py-12 md:grid-cols-4 md:py-14">
+    {
+      cifras.map((cifra, i) => (
+        <div
+          class="flex flex-col items-center px-4 text-center md:border-marca-primario-claro"
+          class:list={[i % 2 === 1 && 'border-l md:border-l', i >= 2 && 'md:border-l']}
+          data-reveal
+          style={`--reveal-delay:${i * 90}ms`}
+        >
+          {cifra.icono && (
+            <Icon name={cifra.icono} class="mb-3 h-9 w-9 text-marca-resalte" />
+          )}
+          <dt class="font-display text-4xl text-white md:text-5xl">{cifra.valor}</dt>
+          <dd class="mt-1 text-xs font-semibold uppercase tracking-wider text-white/70 md:text-sm">
+            {cifra.etiqueta}
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>

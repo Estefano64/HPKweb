@@ -1,0 +1,132 @@
+---
+/* ==========================================================================
+   GALERIA — Grilla de fotos con lightbox (ampliar al hacer clic)
+   Las fotos salen de site.galeria; cada archivo se resuelve desde
+   src/assets/galeria/ (o placeholder si aun no existe).
+   JS minimo, sin dependencias.
+   ========================================================================== */
+import { Image } from 'astro:assets';
+import { site } from '../config/site';
+import { imagenGaleria } from '../lib/imagenes';
+
+const fotos = site.galeria.map((f) => ({ ...f, src: imagenGaleria(f.archivo) }));
+---
+
+<div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+  {
+    fotos.map((foto, i) => (
+      <button
+        type="button"
+        class="group relative aspect-[4/3] overflow-hidden rounded-lg border border-marca-borde bg-marca-niebla"
+        data-galeria-abrir
+        data-indice={i}
+        data-reveal
+        style={`--reveal-delay:${(i % 4) * 90}ms`}
+        aria-label={`Ampliar foto: ${foto.alt}`}
+      >
+        <Image
+          src={foto.src}
+          alt={foto.alt}
+          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          width={600}
+          height={450}
+          loading="lazy"
+        />
+      </button>
+    ))
+  }
+</div>
+
+{/* Lightbox: oculto por defecto */}
+<div
+  id="galeria-lightbox"
+  class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/85 p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Foto ampliada"
+>
+  <button
+    type="button"
+    id="galeria-cerrar"
+    class="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+    aria-label="Cerrar"
+  >
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+
+  <button
+    type="button"
+    id="galeria-prev"
+    class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20 md:left-6"
+    aria-label="Foto anterior"
+  >
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+
+  <figure class="max-h-[88vh] max-w-5xl text-center">
+    <img id="galeria-img" src="" alt="" class="mx-auto max-h-[80vh] w-auto rounded-lg" />
+    <figcaption id="galeria-cap" class="mt-3 text-sm text-white/80"></figcaption>
+  </figure>
+
+  <button
+    type="button"
+    id="galeria-next"
+    class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20 md:right-6"
+    aria-label="Foto siguiente"
+  >
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+</div>
+
+<script>
+  // Lightbox simple: lee las fotos de los <img> ya renderizados en la grilla.
+  const botones = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-galeria-abrir]'));
+  const fotos = botones.map((b) => {
+    const img = b.querySelector('img');
+    return { src: img?.currentSrc || img?.src || '', alt: img?.alt || '' };
+  });
+
+  const lightbox = document.getElementById('galeria-lightbox');
+  const imgGrande = document.getElementById('galeria-img') as HTMLImageElement | null;
+  const caption = document.getElementById('galeria-cap');
+  let actual = 0;
+
+  function mostrar(i: number) {
+    if (!fotos.length || !imgGrande) return;
+    actual = (i + fotos.length) % fotos.length;
+    imgGrande.src = fotos[actual].src;
+    imgGrande.alt = fotos[actual].alt;
+    if (caption) caption.textContent = fotos[actual].alt;
+  }
+  function abrir(i: number) {
+    mostrar(i);
+    lightbox?.classList.remove('hidden');
+    lightbox?.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+  function cerrar() {
+    lightbox?.classList.add('hidden');
+    lightbox?.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  botones.forEach((b, i) => b.addEventListener('click', () => abrir(i)));
+  document.getElementById('galeria-cerrar')?.addEventListener('click', cerrar);
+  document.getElementById('galeria-prev')?.addEventListener('click', () => mostrar(actual - 1));
+  document.getElementById('galeria-next')?.addEventListener('click', () => mostrar(actual + 1));
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) cerrar();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (lightbox?.classList.contains('hidden')) return;
+    if (e.key === 'Escape') cerrar();
+    if (e.key === 'ArrowLeft') mostrar(actual - 1);
+    if (e.key === 'ArrowRight') mostrar(actual + 1);
+  });
+</script>

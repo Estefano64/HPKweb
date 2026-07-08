@@ -1,0 +1,56 @@
+---
+/* ==========================================================================
+   HERO — Cabecera principal de la pagina de inicio
+   Foto a pantalla completa con degradado para legibilidad del texto.
+   Para reemplazar la imagen, cambia el archivo importado abajo por una foto
+   real (.jpg / .webp) en src/assets/. astro:assets la optimiza sola.
+   ========================================================================== */
+import { Image } from 'astro:assets';
+import heroImg from '../assets/hero.jpg';
+
+interface Props {
+  /** Parte normal del titular */
+  titulo: string;
+  /** Palabra(s) clave resaltada(s) en color claro dentro del titular */
+  resaltado: string;
+  /** Texto descriptivo bajo el titular */
+  subtitulo: string;
+}
+const { titulo, resaltado, subtitulo } = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[78vh] items-center overflow-hidden bg-marca-primario">
+  {/* Foto de fondo a todo el ancho, optimizada por astro:assets */}
+  <Image
+    src={heroImg}
+    alt=""
+    class="absolute inset-0 -z-20 h-full w-full object-cover"
+    loading="eager"
+    width={1600}
+    height={900}
+  />
+  {/* Degradado azul oscuro encima: asegura que el texto siempre se lea */}
+  <div
+    class="absolute inset-0 -z-10 bg-gradient-to-tr from-marca-primario via-marca-primario/85 to-marca-primario/40"
+  >
+  </div>
+
+  <div class="contenedor py-20 md:py-28">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+        {titulo}{' '}
+        <span class="text-marca-resalte">{resaltado}</span>
+      </h1>
+      <p class="mt-6 text-lg leading-relaxed text-white/85 md:text-xl">{subtitulo}</p>
+
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/servicios/" class="btn-primario bg-white !text-marca-primario hover:bg-marca-niebla">
+          Nuestros servicios
+        </a>
+        <a href="/contacto/" class="btn-secundario border-white/40 !text-white hover:bg-white/10">
+          Contactar
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+CARPETA DE FOTOS DE LA GALERIA
+==============================
+
+Coloca aqui las fotos reales que apareceran en la pagina /galeria/.
+
+NOMBRES ESPERADOS (definidos en src/config/site.ts -> galeria):
+  galeria-01.jpg
+  galeria-02.jpg
+  galeria-03.jpg
+  galeria-04.jpg
+  galeria-05.jpg
+  galeria-06.jpg
+  galeria-07.jpg
+  galeria-08.jpg
+
+REGLAS:
+- Usa el MISMO nombre exacto (o cambia el nombre en site.ts -> galeria).
+- Formatos aceptados: .jpg .jpeg .png .webp .avif
+- Tamano recomendado: 1600 x 1200 px aprox. (horizontal). El sitio las
+  optimiza solo en el build (no necesitas comprimirlas a mano).
+- Mientras una foto no exista, se muestra un marcador "Foto pendiente".
+
+PARA AGREGAR MAS FOTOS:
+1. Agrega una linea en src/config/site.ts dentro de "galeria"
+   (con su "archivo" y un "alt" descriptivo).
+2. Sube el archivo a esta carpeta con ese nombre.

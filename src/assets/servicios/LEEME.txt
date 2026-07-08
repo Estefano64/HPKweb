@@ -1,0 +1,21 @@
+CARPETA DE FOTOS DE LOS SERVICIOS
+=================================
+
+Coloca aqui una foto por servicio. El nombre del archivo debe coincidir con
+el identificador del servicio (el nombre del archivo .md en
+src/content/servicios/, sin la extension).
+
+NOMBRES ESPERADOS (segun los servicios actuales):
+  cilindro-hidraulico.jpg
+  maquinado-in-situ.jpg
+  overhaul-equipos-auxiliares.jpg
+  mandos-frenos.jpg
+  diseno-estructural.jpg
+  reparacion-estructural.jpg
+  fabricaciones.jpg
+
+REGLAS:
+- Formatos aceptados: .jpg .jpeg .png .webp .avif
+- Tamano recomendado: 1200 x 900 px aprox.
+- Si falta la foto de un servicio, se muestra un marcador "Foto pendiente".
+- Si agregas un nuevo servicio (.md), nombra su foto igual que el archivo .md.

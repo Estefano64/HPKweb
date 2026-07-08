@@ -1,0 +1,147 @@
+---
+/* ==========================================================================
+   BASE LAYOUT — Estructura HTML comun de todas las paginas
+   Incluye <head> con SEO (meta, Open Graph, Twitter y datos estructurados
+   JSON-LD), carga de fuentes, header, footer y boton flotante de WhatsApp.
+   ========================================================================== */
+
+import { site, telHref } from '../config/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BotonWhatsApp from '../components/BotonWhatsApp.astro';
+import Preloader from '../components/Preloader.astro';
+
+// Tipografias empaquetadas con Fontsource (sin CDN de Google).
+// Titulos: Bebas Neue (un solo peso). Cuerpo: Montserrat (varios pesos).
+import '@fontsource/bebas-neue/400.css';
+import '@fontsource/montserrat/400.css';
+import '@fontsource/montserrat/500.css';
+import '@fontsource/montserrat/600.css';
+import '@fontsource/montserrat/700.css';
+
+// Estilos globales + tokens de marca.
+import '../styles/global.css';
+
+interface Props {
+  /** Titulo de la pestana (se le anade el nombre de la empresa) */
+  titulo: string;
+  /** Meta descripcion para buscadores (opcional, usa la global por defecto) */
+  descripcion?: string;
+  /** Palabras clave especificas de la pagina (se suman a las globales) */
+  palabrasClave?: string[];
+  /** Imagen para compartir en redes (ruta absoluta o relativa a la raiz) */
+  imagen?: string;
+}
+
+const {
+  titulo,
+  descripcion = site.descripcion,
+  palabrasClave = [],
+  imagen = '/og-image.svg',
+} = Astro.props;
+
+const tituloCompleto = `${titulo} | ${site.nombreCorto}`;
+// URL canonica absoluta de la pagina actual.
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const imagenAbs = new URL(imagen, site.url).href;
+const keywords = [...palabrasClave, ...site.palabrasClave].join(', ');
+
+// Datos estructurados (Schema.org) para SEO local: ayuda a Google a entender
+// que es una empresa local con telefono, direccion y horario.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: site.nombre,
+  alternateName: site.nombreCorto,
+  url: site.url,
+  description: site.descripcion,
+  email: site.email,
+  telephone: site.telefonos.map((t) => telHref(t)),
+  image: imagenAbs,
+  foundingDate: site.empresa.anioFundacion,
+  taxID: site.empresa.ruc,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.empresa.direccionLegal,
+    addressLocality: 'Arequipa',
+    addressRegion: 'Arequipa',
+    addressCountry: 'PE',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: site.empresa.lat,
+    longitude: site.empresa.lng,
+  },
+  areaServed: site.sectores,
+  openingHours: 'Mo-Fr 08:00-18:00, Sa 08:00-13:00',
+};
+---
+
+<!doctype html>
+<html lang="es-PE">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+
+    <title>{tituloCompleto}</title>
+    <meta name="description" content={descripcion} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={site.nombre} />
+    <meta name="robots" content="index, follow" />
+    <meta name="geo.region" content="PE-ARE" />
+    <meta name="geo.placename" content="Arequipa" />
+
+    {/* Open Graph (Facebook, WhatsApp, LinkedIn) */}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_PE" />
+    <meta property="og:site_name" content={site.nombre} />
+    <meta property="og:title" content={tituloCompleto} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imagenAbs} />
+
+    {/* Twitter / X */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={tituloCompleto} />
+    <meta name="twitter:description" content={descripcion} />
+    <meta name="twitter:image" content={imagenAbs} />
+
+    <meta name="generator" content={Astro.generator} />
+
+    {/* Datos estructurados para SEO local */}
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Preloader />
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <BotonWhatsApp />
+
+    {/* Animacion de aparicion al hacer scroll (revela elementos con data-reveal) */}
+    <script>
+      const elementos = document.querySelectorAll('[data-reveal]');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        elementos.forEach((el) => el.classList.add('es-visible'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('es-visible');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+        );
+        elementos.forEach((el) => io.observe(el));
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,291 @@
+---
+/* ==========================================================================
+   PAGINA: INICIO
+   ========================================================================== */
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import StatsBand from '../components/StatsBand.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import PilarCard from '../components/PilarCard.astro';
+import ServicioCard from '../components/ServicioCard.astro';
+import SedeCard from '../components/SedeCard.astro';
+import IconoWA from '../components/IconoWA.astro';
+import { Icon } from 'astro-icon/components';
+import { site, waHref } from '../config/site';
+import { imagenServicio, imagenGaleria } from '../lib/imagenes';
+
+// Servicios destacados para el resumen de la portada.
+const servicios = (await getCollection('servicios'))
+  .filter((s) => s.data.destacado)
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .map((s) => ({ ...s, imagen: imagenServicio(s.id) }));
+
+// Una muestra de la galeria para el avance de la portada (primeras 4).
+const muestraGaleria = site.galeria.slice(0, 4).map((f) => ({ ...f, src: imagenGaleria(f.archivo) }));
+
+// Franja de cifras: las dos primeras se calculan; las otras vienen de site.ts.
+const aniosExperiencia = new Date().getFullYear() - Number(site.empresa.anioFundacion);
+const cifras = [
+  { valor: site.empresa.anioFundacion, etiqueta: 'Inicio de operaciones', icono: 'mdi:flag-checkered' },
+  { valor: `+${aniosExperiencia}`, etiqueta: 'Anios de experiencia', icono: 'mdi:trophy-outline' },
+  { ...site.cifrasExtra[0], icono: 'mdi:clock-outline' },
+  { ...site.cifrasExtra[1], icono: 'mdi:cog-outline' },
+];
+
+// Iconos para los pilares corporativos (Calidad / Confianza).
+const iconosPilares = ['mdi:shield-check-outline', 'mdi:handshake-outline'];
+
+// Iconos de mecanica por sector (mineria / construccion / pesca).
+const iconosSector: Record<string, string> = {
+  Mineria: 'mdi:excavator',
+  Construccion: 'mdi:crane',
+  Pesquero: 'mdi:ferry',
+};
+---
+
+<BaseLayout titulo="Inicio">
+  <Hero
+    titulo="Reparacion, repuestos y componentes"
+    resaltado="para mineria"
+    subtitulo="Mas de 15 anios en ingenieria, mantenimiento, reparacion y fabricacion de partes para equipos moviles y flota auxiliar. Repuestos originales y suministros certificados, con atencion las 24 horas, los 365 dias del anio."
+  />
+
+  {/* Franja de credibilidad */}
+  <StatsBand cifras={cifras} />
+
+  {/* Quienes somos (resumen) */}
+  <section class="seccion">
+    <div class="contenedor grid items-center gap-12 md:grid-cols-2">
+      <div>
+        <SectionHeading
+          etiqueta="Quienes somos"
+          titulo="Un proveedor serio para operaciones exigentes"
+          icono="mdi:office-building-outline"
+        />
+        <p class="mt-6 leading-relaxed text-marca-secundario">
+          {site.nombre} es una empresa peruana con mas de 15 anios de experiencia, especialista
+          en ingenieria, diseno, mantenimiento, reparacion y fabricacion de partes para equipos
+          moviles y flota auxiliar. Contribuimos al exito de clientes de los sectores minero,
+          construccion y pesquero, asegurando disponibilidad, confiabilidad y eficiencia tecnica.
+        </p>
+        <a href="/nosotros/" class="btn-secundario mt-8">Conocer mas</a>
+      </div>
+
+      {/* Dos pilares */}
+      <div class="grid gap-6">
+        {
+          site.pilares.map((pilar, i) => (
+            <div data-reveal style={`--reveal-delay:${i * 120}ms`}>
+              <PilarCard
+                indice={`0${i + 1}`}
+                titulo={pilar.titulo}
+                resumen={pilar.resumen}
+                icono={iconosPilares[i]}
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Servicios */}
+  <section class="seccion bg-marca-niebla">
+    <div class="contenedor">
+      <SectionHeading
+        etiqueta="Servicios"
+        titulo="Que hacemos"
+        descripcion="Soluciones de mantenimiento integral pensadas para maximizar la disponibilidad y vida util de sus equipos."
+        icono="mdi:wrench-outline"
+        centrado
+      />
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          servicios.map((servicio, i) => (
+            <div data-reveal style={`--reveal-delay:${i * 110}ms`}>
+              <ServicioCard
+                titulo={servicio.data.titulo}
+                resumen={servicio.data.resumen}
+                imagen={servicio.imagen}
+                href={`/servicios/#${servicio.id}`}
+              />
+            </div>
+          ))
+        }
+      </div>
+      <div class="mt-10 text-center">
+        <a href="/servicios/" class="btn-primario">Ver todos los servicios</a>
+      </div>
+    </div>
+  </section>
+
+  {/* Sectores atendidos (franja azul con iconos) */}
+  <section class="relative overflow-hidden bg-marca-primario py-16 md:py-20">
+    {/* Engranaje decorativo de fondo */}
+    <Icon
+      name="mdi:cog"
+      class="animar-giro pointer-events-none absolute -right-16 -top-16 h-64 w-64 text-white/5"
+    />
+    <div class="contenedor relative">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-marca-resalte">Sectores</p>
+        <h2 class="text-3xl font-bold text-white md:text-4xl">A quienes atendemos</h2>
+        <p class="mt-4 text-lg text-white/75">
+          Trabajamos para operaciones que exigen disponibilidad, confiabilidad y eficiencia tecnica.
+        </p>
+      </div>
+      <ul class="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
+        {
+          site.sectores.map((sector, i) => (
+            <li
+              class="group flex flex-col items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-8 text-center transition-colors hover:bg-white/10"
+              data-reveal
+              style={`--reveal-delay:${i * 120}ms`}
+            >
+              <span class="flex h-16 w-16 items-center justify-center rounded-full bg-marca-acento/15 text-marca-resalte transition-transform duration-300 group-hover:scale-110">
+                <Icon name={iconosSector[sector] ?? 'mdi:cog'} class="h-8 w-8" />
+              </span>
+              <span class="font-display text-xl text-white">{sector}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* Clientes */}
+  <section class="seccion bg-marca-niebla">
+    <div class="contenedor">
+      <SectionHeading
+        etiqueta="Clientes"
+        titulo="Empresas que confian en nosotros"
+        descripcion="Descubra por que las mineras eligen nuestra excelencia en servicio y soluciones."
+        icono="mdi:handshake-outline"
+        centrado
+      />
+      <ul class="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {
+          site.clientes.map((cliente, i) => (
+            <li
+              class="flex items-center justify-center rounded-lg border border-marca-borde bg-white px-4 py-6 text-center text-sm font-bold text-marca-primario transition-all duration-300 hover:-translate-y-1 hover:border-marca-acento/40 hover:shadow-md"
+              data-reveal
+              style={`--reveal-delay:${(i % 5) * 80}ms`}
+            >
+              {cliente}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* Repuestos (avance) */}
+  <section class="bg-marca-primario">
+    <div class="contenedor grid items-center gap-10 py-16 md:grid-cols-2">
+      <div>
+        <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-marca-resalte">Repuestos</p>
+        <h2 class="text-3xl font-bold text-white">Repuestos y componentes a un mensaje de distancia</h2>
+        <p class="mt-5 leading-relaxed text-white/80">
+          Hidraulicos, tren de rodaje, motor, piezas de desgaste y fabricacion bajo pedido.
+          Pida su cotizacion por WhatsApp: le respondemos rapido.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="/repuestos/" class="btn-primario bg-white !text-marca-primario hover:bg-marca-niebla">
+            Ver repuestos
+          </a>
+          <a
+            href={waHref(`Hola ${site.nombreCorto}, quisiera cotizar un repuesto.`)}
+            target="_blank"
+            rel="noopener"
+            class="btn-primario whitespace-nowrap !bg-[#25D366] hover:!bg-[#1da851]"
+          >
+            <IconoWA size={18} />
+            Pedir por WhatsApp
+          </a>
+        </div>
+      </div>
+      <ul class="grid grid-cols-2 gap-3">
+        {
+          site.repuestos.slice(0, 6).map((cat) => (
+            <li class="rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold text-white">
+              {cat.titulo}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* Galeria (avance) */}
+  <section class="seccion">
+    <div class="contenedor">
+      <SectionHeading etiqueta="Galeria" titulo="Nuestro trabajo" icono="mdi:image-multiple-outline" centrado />
+      <div class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
+        {
+          muestraGaleria.map((foto, i) => (
+            <div
+              class="group overflow-hidden rounded-lg border border-marca-borde"
+              data-reveal
+              style={`--reveal-delay:${i * 90}ms`}
+            >
+              <Image
+                src={foto.src}
+                alt={foto.alt}
+                class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                width={600}
+                height={450}
+                loading="lazy"
+              />
+            </div>
+          ))
+        }
+      </div>
+      <div class="mt-10 text-center">
+        <a href="/galeria/" class="btn-secundario">Ver galeria completa</a>
+      </div>
+    </div>
+  </section>
+
+  {/* Sede */}
+  <section class="seccion bg-marca-niebla">
+    <div class="contenedor">
+      <SectionHeading etiqueta="Presencia" titulo="Nuestra sede" icono="mdi:map-marker-outline" centrado />
+      <div class="mx-auto mt-12 grid max-w-xl gap-6">
+        {site.sedes.map((sede) => <SedeCard sede={sede} />)}
+      </div>
+    </div>
+  </section>
+
+  {/* Llamado de cierre */}
+  <section class="relative overflow-hidden bg-marca-primario">
+    <Icon
+      name="mdi:cog"
+      class="animar-giro pointer-events-none absolute -left-16 -bottom-20 h-72 w-72 text-white/5"
+    />
+    <Icon
+      name="mdi:cog"
+      class="animar-giro-inverso pointer-events-none absolute -right-10 -top-16 h-48 w-48 text-white/5"
+    />
+    <div class="contenedor relative flex flex-col items-center gap-6 py-16 text-center" data-reveal>
+      <h2 class="max-w-2xl text-3xl font-bold text-white">
+        Trabajemos juntos en el mantenimiento de sus equipos
+      </h2>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/contacto/" class="btn-primario bg-white !text-marca-primario hover:bg-marca-niebla">
+          Hablar con nosotros
+        </a>
+        <a
+          href={waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`)}
+          target="_blank"
+          rel="noopener"
+          class="btn-primario whitespace-nowrap !bg-[#25D366] hover:!bg-[#1da851]"
+        >
+          <IconoWA size={18} />
+          Escribir por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

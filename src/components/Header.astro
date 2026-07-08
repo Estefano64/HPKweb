@@ -1,0 +1,144 @@
+---
+/* ==========================================================================
+   HEADER — Barra de navegacion superior (reutilizable)
+   Responsive: menu horizontal en escritorio (lg+), menu desplegable en movil.
+   ========================================================================== */
+import { Image } from 'astro:assets';
+import { site, telHref, waHref } from '../config/site';
+import logo from '../assets/logoHPK.webp';
+import IconoWA from './IconoWA.astro';
+
+// Ruta actual para marcar el enlace activo.
+const rutaActual = Astro.url.pathname;
+
+/** Determina si un enlace corresponde a la pagina actual */
+function esActivo(href: string): boolean {
+  if (href === '/') return rutaActual === '/';
+  return rutaActual.startsWith(href);
+}
+
+const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`);
+---
+
+{/* Barra superior utilitaria (correo + telefonos + WhatsApp). Se oculta en movil. */}
+<div class="hidden bg-marca-primario text-white lg:block">
+  <div class="contenedor flex h-9 items-center justify-between text-xs">
+    <div class="flex items-center gap-4">
+      <a href={`mailto:${site.email}`} class="text-white/80 transition-colors hover:text-white">
+        {site.email}
+      </a>
+      <span class="text-white/30" aria-hidden="true">|</span>
+      <span class="flex items-center gap-3">
+        {
+          site.telefonos.map((tel) => (
+            <a href={`tel:${telHref(tel)}`} class="text-white/80 transition-colors hover:text-white">
+              {tel}
+            </a>
+          ))
+        }
+      </span>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href={waContacto} target="_blank" rel="noopener" class="flex items-center gap-1.5 text-white/80 transition-colors hover:text-white">
+        <IconoWA size={14} />
+        {site.whatsapp}
+      </a>
+      <span class="text-white/30" aria-hidden="true">|</span>
+      <span class="text-white/70">Arequipa, Peru</span>
+    </div>
+  </div>
+</div>
+
+<header class="sticky top-0 z-50 border-b border-marca-borde bg-white/95 backdrop-blur">
+  <nav class="contenedor flex h-16 items-center justify-between" aria-label="Navegacion principal">
+    {/* Logotipo de la empresa */}
+    <a href="/" class="flex items-center" aria-label={`${site.nombre} - Inicio`}>
+      <Image src={logo} alt={site.nombre} class="h-10 w-auto md:h-11" width={391} height={159} loading="eager" />
+    </a>
+
+    {/* Menu escritorio */}
+    <ul class="hidden items-center gap-6 lg:flex">
+      {
+        site.nav.map((enlace) => (
+          <li>
+            <a
+              href={enlace.href}
+              class:list={[
+                'text-sm font-medium transition-colors hover:text-marca-acento',
+                esActivo(enlace.href) ? 'text-marca-acento' : 'text-marca-secundario',
+              ]}
+              aria-current={esActivo(enlace.href) ? 'page' : undefined}
+            >
+              {enlace.texto}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    {/* CTA WhatsApp (escritorio) */}
+    <a
+      href={waContacto}
+      target="_blank"
+      rel="noopener"
+      class="btn-primario hidden whitespace-nowrap !bg-[#25D366] hover:!bg-[#1da851] lg:inline-flex"
+    >
+      <IconoWA size={18} />
+      WhatsApp
+    </a>
+
+    {/* Boton de menu movil */}
+    <button
+      id="btn-menu"
+      class="inline-flex items-center justify-center rounded p-2 text-marca-primario lg:hidden"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      aria-controls="menu-movil"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </nav>
+
+  {/* Menu movil desplegable */}
+  <div id="menu-movil" class="hidden border-t border-marca-borde bg-white lg:hidden">
+    <ul class="contenedor flex flex-col py-2">
+      {
+        site.nav.map((enlace) => (
+          <li>
+            <a
+              href={enlace.href}
+              class:list={[
+                'block py-3 text-base font-medium transition-colors hover:text-marca-acento',
+                esActivo(enlace.href) ? 'text-marca-acento' : 'text-marca-secundario',
+              ]}
+              aria-current={esActivo(enlace.href) ? 'page' : undefined}
+            >
+              {enlace.texto}
+            </a>
+          </li>
+        ))
+      }
+      <li class="py-3">
+        <a href={waContacto} target="_blank" rel="noopener" class="btn-primario w-full justify-center whitespace-nowrap !bg-[#25D366] hover:!bg-[#1da851]">
+          <IconoWA size={18} />
+          Escribirnos por WhatsApp
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  // Toggle del menu movil (JS minimo, sin dependencias).
+  const boton = document.getElementById('btn-menu');
+  const menu = document.getElementById('menu-movil');
+  boton?.addEventListener('click', () => {
+    const abierto = menu?.classList.toggle('hidden') === false;
+    boton.setAttribute('aria-expanded', String(abierto));
+    boton.setAttribute('aria-label', abierto ? 'Cerrar menu' : 'Abrir menu');
+  });
+</script>

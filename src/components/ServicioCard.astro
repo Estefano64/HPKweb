@@ -1,0 +1,51 @@
+---
+/* ==========================================================================
+   SERVICIO CARD — Tarjeta de servicio para el listado
+   Muestra foto (opcional), titulo, resumen y enlace al detalle (opcional).
+   ========================================================================== */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  titulo: string;
+  resumen: string;
+  /** Imagen del servicio (opcional). Si no se pasa, se muestra el icono. */
+  imagen?: ImageMetadata;
+  /** Enlace al detalle del servicio (opcional). */
+  href?: string;
+}
+const { titulo, resumen, imagen, href } = Astro.props;
+---
+
+<article class="flex h-full flex-col overflow-hidden rounded-lg border border-marca-borde bg-white transition-shadow hover:shadow-md">
+  {
+    imagen ? (
+      <Image
+        src={imagen}
+        alt={`Servicio: ${titulo}`}
+        class="h-44 w-full object-cover"
+        width={600}
+        height={450}
+        loading="lazy"
+      />
+    ) : (
+      <div class="flex h-44 w-full items-center justify-center bg-marca-niebla">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+      </div>
+    )
+  }
+  <div class="flex flex-1 flex-col p-6">
+    <h3 class="text-lg font-bold">{titulo}</h3>
+    <p class="mt-2 flex-1 text-sm leading-relaxed text-marca-secundario">{resumen}</p>
+    {
+      href && (
+        <a href={href} class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-marca-acento">
+          Ver detalle <span aria-hidden="true">&rarr;</span>
+        </a>
+      )
+    }
+  </div>
+</article>

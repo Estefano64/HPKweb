@@ -1,0 +1,231 @@
+---
+/* ==========================================================================
+   PAGINA: NOSOTROS
+   ========================================================================== */
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import PilarCard from '../components/PilarCard.astro';
+import SedeCard from '../components/SedeCard.astro';
+import nosotrosImg from '../assets/nosotros.jpg';
+import { site } from '../config/site';
+
+// Iconos de mecanica por sector y por valor.
+const iconosSector: Record<string, string> = {
+  Mineria: 'mdi:excavator',
+  Construccion: 'mdi:crane',
+  Pesquero: 'mdi:ferry',
+};
+const iconosPilares = ['mdi:shield-check-outline', 'mdi:handshake-outline'];
+const iconosValor = [
+  'mdi:shield-check-outline',
+  'mdi:check-decagram-outline',
+  'mdi:medal-outline',
+  'mdi:clock-outline',
+];
+---
+
+<BaseLayout titulo="Nosotros">
+  {/* Cabecera de pagina */}
+  <section class="border-b border-marca-borde bg-marca-niebla">
+    <div class="contenedor py-16 md:py-20">
+      <SectionHeading
+        etiqueta="Nosotros"
+        titulo="Trayectoria construida sobre calidad y confianza"
+        descripcion="Conozca a la empresa detras del servicio."
+      />
+    </div>
+  </section>
+
+  {/* Historia + imagen */}
+  <section class="seccion">
+    <div class="contenedor grid items-center gap-12 md:grid-cols-2">
+      <div>
+        <h2 class="text-2xl font-bold">Sobre nosotros</h2>
+        <p class="mt-5 leading-relaxed text-marca-secundario">
+          Con mas de quince anios de experiencia, somos especialistas en ingenieria, diseno,
+          mantenimiento, reparacion y fabricacion de partes para equipos moviles como camiones y
+          flota auxiliar. Destacamos por nuestra contribucion al exito de clientes en los sectores
+          minero, construccion y pesquero, asegurando disponibilidad, confiabilidad y eficiencia
+          tecnica.
+        </p>
+        <p class="mt-4 leading-relaxed text-marca-secundario">
+          Cumplimos con rigurosos estandares de seguridad industrial, salud ocupacional y
+          proteccion ambiental, comprometidos siempre con estandares de calidad y servicios
+          excepcionales.
+        </p>
+        <p class="mt-6 rounded-lg border-l-4 border-marca-acento bg-marca-niebla p-4 font-semibold text-marca-primario">
+          Comprometidos las 24 horas, los 365 dias del anio, para ofrecer excelencia en nuestros
+          servicios.
+        </p>
+
+        {/* Ficha de datos registrales */}
+        <dl class="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 border-t border-marca-borde pt-6 text-sm sm:grid-cols-2">
+          <div>
+            <dt class="font-semibold text-marca-tinta">RUC</dt>
+            <dd class="text-marca-secundario">{site.empresa.ruc}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-marca-tinta">Tipo de empresa</dt>
+            <dd class="text-marca-secundario">{site.empresa.tipo}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-marca-tinta">Inicio de actividades</dt>
+            <dd class="text-marca-secundario">{site.empresa.inicioActividades}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-marca-tinta">Actividades</dt>
+            <dd class="text-marca-secundario">{site.empresa.actividades.join('; ')}.</dd>
+          </div>
+        </dl>
+
+        <h2 class="mt-10 flex items-center gap-3 text-2xl font-bold">
+          <Icon name="mdi:target" class="h-7 w-7 text-marca-acento" />
+          Nuestra mision
+        </h2>
+        <p class="mt-5 leading-relaxed text-marca-secundario">{site.mision}</p>
+
+        <h2 class="mt-8 flex items-center gap-3 text-2xl font-bold">
+          <Icon name="mdi:eye-outline" class="h-7 w-7 text-marca-acento" />
+          Nuestra vision
+        </h2>
+        <p class="mt-5 leading-relaxed text-marca-secundario">{site.vision}</p>
+      </div>
+
+      <div>
+        <Image
+          src={nosotrosImg}
+          alt="Equipo tecnico de HP&K Inversiones frente al taller en Arequipa"
+          class="w-full rounded-lg border border-marca-borde object-cover"
+          width={1600}
+          height={900}
+        />
+      </div>
+    </div>
+  </section>
+
+  {/* Pilares desarrollados */}
+  <section class="seccion bg-marca-niebla">
+    <div class="contenedor">
+      <SectionHeading
+        etiqueta="Lo que nos define"
+        titulo="Nuestros dos pilares"
+        descripcion="Todo lo que hacemos se apoya en estos dos principios."
+        centrado
+      />
+      <div class="mt-12 grid gap-6 md:grid-cols-2">
+        {
+          site.pilares.map((pilar, i) => (
+            <div data-reveal style={`--reveal-delay:${i * 120}ms`}>
+              <PilarCard
+                indice={`0${i + 1}`}
+                titulo={pilar.titulo}
+                resumen={pilar.resumen}
+                icono={iconosPilares[i]}
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Valores */}
+  <section class="seccion">
+    <div class="contenedor">
+      <SectionHeading
+        etiqueta="Valores"
+        titulo="Lo que guia nuestro trabajo"
+        icono="mdi:compass-outline"
+        centrado
+      />
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          site.valores.map((valor, i) => (
+            <article
+              class="group rounded-lg border border-marca-borde bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-marca-acento/40 hover:shadow-lg"
+              data-reveal
+              style={`--reveal-delay:${i * 90}ms`}
+            >
+              <span class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-marca-primario text-marca-resalte transition-colors group-hover:bg-marca-acento group-hover:text-white">
+                <Icon name={iconosValor[i] ?? 'mdi:cog-outline'} class="h-6 w-6" />
+              </span>
+              <h3 class="text-lg font-bold">{valor.titulo}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-marca-secundario">{valor.resumen}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Sectores atendidos */}
+  <section class="seccion bg-marca-niebla">
+    <div class="contenedor">
+      <SectionHeading
+        etiqueta="Sectores"
+        titulo="A quienes atendemos"
+        descripcion="Trabajamos para operaciones de distintos rubros que exigen disponibilidad y confiabilidad."
+        icono="mdi:factory"
+        centrado
+      />
+      <ul class="mx-auto mt-10 flex max-w-4xl flex-wrap justify-center gap-3">
+        {
+          site.sectores.map((sector, i) => (
+            <li
+              class="flex items-center gap-2 rounded-full border border-marca-borde bg-white px-5 py-2.5 text-sm font-semibold text-marca-primario"
+              data-reveal
+              style={`--reveal-delay:${i * 90}ms`}
+            >
+              <Icon name={iconosSector[sector] ?? 'mdi:cog'} class="h-5 w-5 text-marca-acento" />
+              {sector}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* Clientes */}
+  <section class="seccion">
+    <div class="contenedor">
+      <SectionHeading
+        etiqueta="Clientes"
+        titulo="Empresas que confian en nosotros"
+        descripcion="Descubra por que las mineras eligen nuestra excelencia en servicio y soluciones."
+        icono="mdi:handshake-outline"
+        centrado
+      />
+      <ul class="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {
+          site.clientes.map((cliente, i) => (
+            <li
+              class="flex items-center justify-center rounded-lg border border-marca-borde bg-white px-4 py-6 text-center text-sm font-bold text-marca-primario transition-all duration-300 hover:-translate-y-1 hover:border-marca-acento/40 hover:shadow-md"
+              data-reveal
+              style={`--reveal-delay:${(i % 5) * 80}ms`}
+            >
+              {cliente}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* Sedes */}
+  <section class="seccion bg-marca-niebla">
+    <div class="contenedor">
+      <SectionHeading etiqueta="Presencia" titulo="Nuestra sede" icono="mdi:map-marker-outline" />
+      <div class="mt-10 grid max-w-xl gap-6">
+        {
+          site.sedes.map((sede, i) => (
+            <div data-reveal style={`--reveal-delay:${i * 100}ms`}>
+              <SedeCard sede={sede} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

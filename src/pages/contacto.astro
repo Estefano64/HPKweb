@@ -1,0 +1,150 @@
+---
+/* ==========================================================================
+   PAGINA: CONTACTO
+   Datos de ambas sedes, formulario (mailto) y mapas.
+   ========================================================================== */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ContactForm from '../components/ContactForm.astro';
+import IconoWA from '../components/IconoWA.astro';
+import { Icon } from 'astro-icon/components';
+import { site, telHref, waHref } from '../config/site';
+
+const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`);
+---
+
+<BaseLayout
+  titulo="Contacto"
+  descripcion="Contacte a HP&K Inversiones S.R.L. en Arequipa: correo, telefonos y WhatsApp. Mantenimiento de maquinaria, componentes y venta de repuestos."
+>
+  <section class="border-b border-marca-borde bg-marca-niebla">
+    <div class="contenedor py-16 md:py-20">
+      <SectionHeading
+        etiqueta="Contacto"
+        titulo="Conversemos sobre su operacion"
+        descripcion="Estamos en Arequipa, listos para atender su operacion."
+        icono="mdi:headset"
+      />
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="contenedor grid gap-12 lg:grid-cols-2">
+      {/* Columna de datos */}
+      <div>
+        <h2 class="text-2xl font-bold">Datos de contacto</h2>
+
+        <div class="mt-6 space-y-3">
+          {/* Correo */}
+          <a
+            href={`mailto:${site.email}`}
+            class="group flex items-center gap-4 rounded-lg border border-marca-borde bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-marca-acento/40 hover:shadow-md"
+            data-reveal
+          >
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-marca-primario text-marca-resalte">
+              <Icon name="mdi:email-outline" class="h-5 w-5" />
+            </span>
+            <span>
+              <span class="block text-xs font-semibold uppercase tracking-wide text-marca-secundario">Correo</span>
+              <span class="font-semibold text-marca-primario">{site.email}</span>
+            </span>
+          </a>
+
+          {/* Telefonos */}
+          <div
+            class="flex items-center gap-4 rounded-lg border border-marca-borde bg-white p-4"
+            data-reveal
+            style="--reveal-delay:80ms"
+          >
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-marca-primario text-marca-resalte">
+              <Icon name="mdi:phone-outline" class="h-5 w-5" />
+            </span>
+            <span>
+              <span class="block text-xs font-semibold uppercase tracking-wide text-marca-secundario">Telefonos</span>
+              <span class="flex flex-wrap gap-x-4 font-semibold text-marca-primario">
+                {site.telefonos.map((tel) => (
+                  <a href={`tel:${telHref(tel)}`} class="hover:text-marca-acento">{tel}</a>
+                ))}
+              </span>
+            </span>
+          </div>
+
+          {/* WhatsApp */}
+          <a
+            href={waContacto}
+            target="_blank"
+            rel="noopener"
+            class="group flex items-center gap-4 rounded-lg border border-marca-borde bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-[#25D366]/50 hover:shadow-md"
+            data-reveal
+            style="--reveal-delay:160ms"
+          >
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#25D366] text-white">
+              <IconoWA size={20} />
+            </span>
+            <span>
+              <span class="block text-xs font-semibold uppercase tracking-wide text-marca-secundario">WhatsApp</span>
+              <span class="font-semibold text-marca-primario">{site.whatsapp}</span>
+            </span>
+          </a>
+
+          {/* Horario */}
+          <div
+            class="flex items-center gap-4 rounded-lg border border-marca-borde bg-white p-4"
+            data-reveal
+            style="--reveal-delay:240ms"
+          >
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-marca-primario text-marca-resalte">
+              <Icon name="mdi:clock-outline" class="h-5 w-5" />
+            </span>
+            <span>
+              <span class="block text-xs font-semibold uppercase tracking-wide text-marca-secundario">Horario de atencion</span>
+              <span class="font-semibold text-marca-primario">{site.horario}</span>
+            </span>
+          </div>
+        </div>
+
+        {/* Sedes */}
+        <div class="mt-10 space-y-8">
+          {
+            site.sedes.map((sede) => (
+              <div data-reveal>
+                <h3 class="flex items-center gap-2 text-lg font-bold">
+                  <Icon name="mdi:map-marker-outline" class="h-5 w-5 text-marca-acento" />
+                  Sede {sede.ciudad}
+                </h3>
+                <p class="mt-2 text-marca-secundario">{sede.direccion}</p>
+                {sede.mapaEmbed ? (
+                  <iframe
+                    src={sede.mapaEmbed}
+                    title={`Mapa de la sede ${sede.ciudad}`}
+                    width="100%"
+                    height="240"
+                    style="border:0"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    class="mt-4 rounded-lg border border-marca-borde"
+                  />
+                ) : (
+                  <div class="mt-4 flex h-44 items-center justify-center rounded-lg border border-dashed border-marca-borde bg-marca-niebla text-center text-sm text-marca-secundario">
+                    [PENDIENTE: pegar el mapa de Google Maps de la sede {sede.ciudad} en site.ts &rarr; sedes &rarr; mapaEmbed]
+                  </div>
+                )}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      {/* Columna del formulario */}
+      <div data-reveal style="--reveal-delay:120ms">
+        <h2 class="text-2xl font-bold">Escribanos</h2>
+        <p class="mt-2 text-marca-secundario">
+          Complete el formulario y nos pondremos en contacto a la brevedad.
+        </p>
+        <div class="mt-6">
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,19 @@
+CARPETA DE FOTOS DE REPUESTOS
+=============================
+
+(Opcional) Coloca aqui una foto por categoria de repuestos. El nombre del
+archivo debe coincidir con el "id" de la categoria en
+src/config/site.ts -> repuestos.
+
+NOMBRES ESPERADOS (segun las categorias actuales):
+  repuestos-originales.jpg
+  frenos-miko.jpg
+  iluminacion-senalizacion.jpg
+  control-operacion.jpg
+  cabinas.jpg
+  fabricacion.jpg
+
+REGLAS:
+- Formatos aceptados: .jpg .jpeg .png .webp .avif
+- Tamano recomendado: 1200 x 900 px aprox.
+- Si falta la foto, se muestra un marcador "Foto pendiente".

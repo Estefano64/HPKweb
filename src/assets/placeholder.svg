@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Imagen pendiente">
+  <rect width="1200" height="800" fill="#f7fafc"/>
+  <rect x="1" y="1" width="1198" height="798" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+  <g fill="none" stroke="#1e3a5f" stroke-width="6" opacity="0.5">
+    <circle cx="600" cy="360" r="60"/>
+    <path d="M600 250v-40M600 510v-40M740 360h40M420 360h40M699 261l28-28M473 487l28-28M699 459l28 28M473 233l28 28"/>
+  </g>
+  <text x="600" y="600" font-family="Sora, Arial, sans-serif" font-size="34" font-weight="700" fill="#1e3a5f" text-anchor="middle" opacity="0.7">HP&amp;K Inversiones</text>
+  <text x="600" y="650" font-family="Inter, Arial, sans-serif" font-size="24" fill="#4a5568" text-anchor="middle">Foto pendiente</text>
+</svg>

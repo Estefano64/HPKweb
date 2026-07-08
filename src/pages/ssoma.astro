@@ -1,0 +1,117 @@
+---
+/* ==========================================================================
+   PAGINA: SSOMA / POLITICAS
+   Calidad, seguridad, salud, comunidades y medio ambiente.
+   El contenido vive en src/content/politicas/*.md
+   ========================================================================== */
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { Icon } from 'astro-icon/components';
+
+// Icono por politica (segun el nombre del archivo .md).
+const iconosPolitica: Record<string, string> = {
+  calidad: 'mdi:check-decagram-outline',
+  'seguridad-salud': 'mdi:shield-check-outline',
+  'medio-ambiente': 'mdi:leaf',
+  comunidades: 'mdi:account-group-outline',
+};
+
+const politicas = (await getCollection('politicas')).sort((a, b) => a.data.orden - b.data.orden);
+const items = await Promise.all(
+  politicas.map(async (politica) => ({
+    ...politica,
+    Content: (await render(politica)).Content,
+  }))
+);
+---
+
+<BaseLayout
+  titulo="SSOMA"
+  descripcion="Politicas de calidad, seguridad, salud ocupacional, medio ambiente y relaciones comunitarias de HP&K Inversiones S.R.L."
+>
+  <section class="border-b border-marca-borde bg-marca-niebla">
+    <div class="contenedor py-16 md:py-20">
+      <SectionHeading
+        etiqueta="SSOMA"
+        titulo="Compromiso con la seguridad, la calidad y el entorno"
+        descripcion="Operamos bajo politicas formales que protegen a nuestro personal, garantizan la calidad del servicio y cuidan a las comunidades y el medio ambiente."
+        icono="mdi:shield-check-outline"
+      />
+    </div>
+  </section>
+
+  {/* Indice de politicas */}
+  <section class="seccion">
+    <div class="contenedor">
+      <nav aria-label="Indice de politicas" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          items.map((politica, i) => (
+            <a
+              href={`#${politica.id}`}
+              class="group flex flex-col items-start gap-3 rounded-lg border border-marca-borde bg-white p-5 text-sm font-semibold text-marca-primario transition-all duration-300 hover:-translate-y-1 hover:border-marca-acento/40 hover:shadow-lg"
+              data-reveal
+              style={`--reveal-delay:${i * 90}ms`}
+            >
+              <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-marca-primario text-marca-resalte transition-colors group-hover:bg-marca-acento group-hover:text-white">
+                <Icon name={iconosPolitica[politica.id] ?? 'mdi:file-document-outline'} class="h-6 w-6" />
+              </span>
+              {politica.data.titulo}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </section>
+
+  {/* Detalle de cada politica */}
+  {
+    items.map((politica, i) => (
+      <section id={politica.id} class:list={['seccion scroll-mt-20', i % 2 === 0 && 'bg-marca-niebla']}>
+        <div class="contenedor max-w-3xl" data-reveal>
+          <h2 class="flex items-center gap-3 text-3xl font-bold">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-marca-primario text-marca-resalte">
+              <Icon name={iconosPolitica[politica.id] ?? 'mdi:file-document-outline'} class="h-6 w-6" />
+            </span>
+            {politica.data.titulo}
+          </h2>
+          <div class="prose-contenido mt-6">
+            <politica.Content />
+          </div>
+        </div>
+      </section>
+    ))
+  }
+</BaseLayout>
+
+<style>
+  /* Estilos del contenido Markdown (mismos que en servicios) */
+  .prose-contenido :global(p) {
+    margin-block: 1rem;
+    line-height: 1.7;
+    color: var(--color-marca-secundario);
+  }
+  .prose-contenido :global(h2) {
+    margin-top: 2.5rem;
+    font-size: 1.5rem;
+  }
+  .prose-contenido :global(ul) {
+    margin-block: 1rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+    color: var(--color-marca-secundario);
+  }
+  .prose-contenido :global(li) {
+    margin-block: 0.4rem;
+  }
+  .prose-contenido :global(blockquote) {
+    margin-block: 1.5rem;
+    border-left: 3px solid var(--color-marca-borde);
+    padding-left: 1rem;
+    color: var(--color-marca-secundario);
+    font-style: italic;
+  }
+  .prose-contenido :global(strong) {
+    color: var(--color-marca-tinta);
+  }
+</style>

@@ -1,0 +1,33 @@
+---
+/* ==========================================================================
+   PILAR CARD — Tarjeta para los pilares (Calidad / Confianza)
+   ========================================================================== */
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  titulo: string;
+  resumen: string;
+  /** Numero o indice mostrado como detalle visual */
+  indice?: string;
+  /** Icono mdi opcional, p. ej. "mdi:shield-check" */
+  icono?: string;
+}
+const { titulo, resumen, indice, icono } = Astro.props;
+---
+
+<article class="group relative overflow-hidden rounded-lg border border-marca-borde bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-marca-acento/40 hover:shadow-lg">
+  <div class="flex items-center gap-4">
+    {
+      icono && (
+        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-marca-primario text-marca-resalte transition-colors group-hover:bg-marca-acento group-hover:text-white">
+          <Icon name={icono} class="h-6 w-6" />
+        </span>
+      )
+    }
+    <div>
+      {indice && <span class="font-display text-sm font-semibold text-marca-acento">{indice}</span>}
+      <h3 class="text-xl font-bold leading-tight">{titulo}</h3>
+    </div>
+  </div>
+  <p class="mt-4 leading-relaxed text-marca-secundario">{resumen}</p>
+</article>
