@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
+    "start": "serve dist -l ${PORT:-3000}",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
+  },
+  "engines": {
+    "node": ">=20.3.0"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.0",
@@ -20,6 +23,7 @@
     "@tailwindcss/vite": "^4.1.0",
     "astro": "^5.8.0",
     "astro-icon": "^1.1.5",
+    "serve": "^14.2.6",
     "sharp": "^0.34.0",
     "tailwindcss": "^4.1.0"
   },
