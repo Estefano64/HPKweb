@@ -7,8 +7,8 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   // URL final del sitio en produccion. Se usa para el sitemap y las URLs absolutas.
-  // [PENDIENTE: confirmar dominio definitivo]
-  site: 'https://www.hpkinv.com',
+  // Dominio principal (sin www). El www redirige a esta URL desde Cloudflare.
+  site: 'https://hpkinv.com',
 
   // Salida 100% estatica: genera HTML plano en /dist, sin necesidad de servidor Node.
   output: 'static',
