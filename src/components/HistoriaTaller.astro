@@ -1,0 +1,89 @@
+---
+/* ==========================================================================
+   HISTORIA DEL TALLER — Linea de tiempo con fotos por año (2019 → 2021)
+   Los textos son descriptivos y editables; ajustar con los hitos reales.
+   ========================================================================== */
+import { Image } from 'astro:assets';
+import SectionHeading from '../components/SectionHeading.astro';
+
+import i2019a from '../assets/historia/2019-01.jpg';
+import i2019b from '../assets/historia/2019-02.jpg';
+import i2019c from '../assets/historia/2019-03.jpg';
+import i2020a from '../assets/historia/2020-01.jpg';
+import i2020b from '../assets/historia/2020-02.jpg';
+import i2020c from '../assets/historia/2020-03.jpg';
+import i2021a from '../assets/historia/2021-01.jpg';
+import i2021b from '../assets/historia/2021-02.jpg';
+
+const historia = [
+  {
+    anio: '2019',
+    texto:
+      'Maquinado, prensa hidráulica y reparación de componentes: los trabajos que forjaron nuestra experiencia en el taller.',
+    fotos: [i2019a, i2019b, i2019c],
+  },
+  {
+    anio: '2020',
+    texto:
+      'Reparación de cilindros y mantenimiento de componentes de gran tonelaje para los sectores minero y de construcción.',
+    fotos: [i2020a, i2020b, i2020c],
+  },
+  {
+    anio: '2021',
+    texto:
+      'Consolidamos nuestras instalaciones en el Parque Industrial Río Seco, en Cerro Colorado, Arequipa.',
+    fotos: [i2021a, i2021b],
+  },
+];
+---
+
+<section class="seccion bg-marca-niebla">
+  <div class="contenedor">
+    <SectionHeading
+      etiqueta="Nuestra historia"
+      titulo="El taller a través de los años"
+      descripcion="Más de una década reparando, fabricando y manteniendo componentes para maquinaria pesada. Así ha crecido nuestro taller."
+      icono="mdi:history"
+    />
+
+    <div class="mt-14 space-y-16">
+      {
+        historia.map((etapa, i) => (
+          <div class="grid items-center gap-8 md:grid-cols-12">
+            {/* Año + texto */}
+            <div class:list={['md:col-span-4', i % 2 === 1 && 'md:order-2']} data-reveal>
+              <p class="font-display text-6xl leading-none text-marca-acento md:text-7xl">{etapa.anio}</p>
+              <span class="mt-3 block h-1 w-16 rounded bg-marca-acento" aria-hidden="true" />
+              <p class="mt-5 leading-relaxed text-marca-secundario">{etapa.texto}</p>
+            </div>
+
+            {/* Fotos del año */}
+            <div
+              class:list={['grid grid-cols-2 gap-3 md:col-span-8', i % 2 === 1 && 'md:order-1']}
+              data-reveal
+              style="--reveal-delay:120ms"
+            >
+              {etapa.fotos.map((foto, j) => (
+                <div
+                  class:list={[
+                    'overflow-hidden rounded-xl border border-marca-borde shadow-sm',
+                    etapa.fotos.length === 3 && j === 0 && 'col-span-2',
+                  ]}
+                >
+                  <Image
+                    src={foto}
+                    alt={`Taller HP&K Inversiones en ${etapa.anio}`}
+                    class="aspect-[16/9] w-full object-cover transition-transform duration-500 hover:scale-105"
+                    width={1000}
+                    height={563}
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

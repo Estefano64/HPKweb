@@ -68,7 +68,7 @@ const redes = (
       }
     </div>
 
-    {/* Columna 3: sedes */}
+    {/* Columna 3: sede + mapa incrustado */}
     <div>
       <h2 class="font-display text-sm font-semibold uppercase tracking-wide text-white/90">Sede</h2>
       <ul class="mt-4 space-y-3 text-sm text-white/80">
@@ -82,6 +82,18 @@ const redes = (
           ))
         }
       </ul>
+      {
+        site.sedes[0]?.mapaEmbed && (
+          <iframe
+            src={site.sedes[0].mapaEmbed}
+            title={`Ubicación de ${site.nombreCorto} en Google Maps`}
+            class="mt-4 h-44 w-full rounded-lg border border-white/10"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          />
+        )
+      }
     </div>
   </div>
 

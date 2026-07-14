@@ -1,0 +1,55 @@
+---
+/* ==========================================================================
+   SOMOS COMUNIDAD — Cultura y equipo humano (convivencia del taller)
+   ========================================================================== */
+import { Image } from 'astro:assets';
+import SectionHeading from '../components/SectionHeading.astro';
+
+import c1 from '../assets/comunidad/comunidad-01.jpg';
+import c2 from '../assets/comunidad/comunidad-02.jpg';
+import c3 from '../assets/comunidad/comunidad-03.jpg';
+import c4 from '../assets/comunidad/comunidad-04.jpg';
+import c5 from '../assets/comunidad/comunidad-05.jpg';
+
+// La segunda foto es vertical: ocupa dos filas para un mosaico equilibrado.
+const fotos = [
+  { src: c1, alt: 'Equipo de HP&K Inversiones celebrando en el taller', span: '' },
+  { src: c2, alt: 'Celebración de cumpleaños en el taller', span: 'row-span-2' },
+  { src: c3, alt: 'Reunión del equipo por el Día de la Madre', span: '' },
+  { src: c4, alt: 'Convivencia del equipo de HP&K Inversiones', span: '' },
+  { src: c5, alt: 'Trabajadores del taller HP&K Inversiones', span: '' },
+];
+---
+
+<section class="seccion bg-marca-niebla">
+  <div class="contenedor">
+    <SectionHeading
+      etiqueta="Somos comunidad"
+      titulo="Detrás de cada componente, un gran equipo"
+      descripcion="En HP&K somos más que un taller: compartimos cumpleaños, fechas especiales y cada logro. Una cultura de compañerismo que se refleja en la calidad de nuestro trabajo."
+      icono="mdi:account-group-outline"
+      centrado
+    />
+
+    <div class="mx-auto mt-12 grid max-w-5xl auto-rows-[180px] grid-cols-2 gap-4 sm:grid-cols-3">
+      {
+        fotos.map((foto, i) => (
+          <div
+            class:list={['group overflow-hidden rounded-xl border border-marca-borde shadow-sm', foto.span]}
+            data-reveal
+            style={`--reveal-delay:${(i % 3) * 90}ms`}
+          >
+            <Image
+              src={foto.src}
+              alt={foto.alt}
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              width={800}
+              height={600}
+              loading="lazy"
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
