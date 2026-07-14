@@ -12,6 +12,7 @@ import PilarCard from '../components/PilarCard.astro';
 import ServicioCard from '../components/ServicioCard.astro';
 import SedeCard from '../components/SedeCard.astro';
 import ClientesMarquee from '../components/ClientesMarquee.astro';
+import VideoEmpresa from '../components/VideoEmpresa.astro';
 import IconoWA from '../components/IconoWA.astro';
 import { Icon } from 'astro-icon/components';
 import { site, waHref } from '../config/site';
@@ -55,6 +56,22 @@ const iconosSector: Record<string, string> = {
 
   {/* Franja de credibilidad */}
   <StatsBand cifras={cifras} />
+
+  {/* Video de presentacion de la empresa */}
+  <section class="seccion">
+    <div class="contenedor">
+      <SectionHeading
+        etiqueta="Conócenos"
+        titulo="Nuestra empresa en un video"
+        descripcion="Un recorrido por lo que hacemos: mantenimiento, reparación y fabricación de componentes para maquinaria pesada y flota auxiliar."
+        icono="mdi:play-circle-outline"
+        centrado
+      />
+      <div class="mx-auto mt-10 max-w-4xl" data-reveal>
+        <VideoEmpresa videoId="XRLtdqeiCuQ" titulo="Presentación de HP&K Inversiones" />
+      </div>
+    </div>
+  </section>
 
   {/* Quienes somos (resumen) */}
   <section class="seccion">
