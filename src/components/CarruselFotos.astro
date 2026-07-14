@@ -100,7 +100,10 @@ const { fotos } = Astro.props;
     raiz.querySelector('.cf-prev')?.addEventListener('click', () => mostrar(actual - 1));
     raiz.querySelector('.cf-next')?.addEventListener('click', () => mostrar(actual + 1));
     lightbox?.addEventListener('click', (e) => {
-      if (e.target === lightbox) cerrar();
+      // Cierra al hacer clic en cualquier zona que no sea la imagen ni las flechas.
+      const t = e.target as HTMLElement;
+      if (t.closest('.cf-prev') || t.closest('.cf-next') || t.tagName === 'IMG') return;
+      cerrar();
     });
     document.addEventListener('keydown', (e) => {
       if (!lightbox || lightbox.classList.contains('hidden')) return;

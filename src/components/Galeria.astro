@@ -121,7 +121,10 @@ const fotos = site.galeria.map((f) => ({ ...f, src: imagenGaleria(f.archivo) }))
   document.getElementById('galeria-prev')?.addEventListener('click', () => mostrar(actual - 1));
   document.getElementById('galeria-next')?.addEventListener('click', () => mostrar(actual + 1));
   lightbox?.addEventListener('click', (e) => {
-    if (e.target === lightbox) cerrar();
+    // Cierra al hacer clic fuera de la imagen y las flechas.
+    const t = e.target as HTMLElement;
+    if (t.closest('#galeria-prev') || t.closest('#galeria-next') || t.tagName === 'IMG') return;
+    cerrar();
   });
   document.addEventListener('keydown', (e) => {
     if (lightbox?.classList.contains('hidden')) return;
