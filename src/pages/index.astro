@@ -30,7 +30,7 @@ const muestraGaleria = site.galeria.slice(0, 4).map((f) => ({ ...f, src: imagenG
 const aniosExperiencia = new Date().getFullYear() - Number(site.empresa.anioFundacion);
 const cifras = [
   { valor: site.empresa.anioFundacion, etiqueta: 'Inicio de operaciones', icono: 'mdi:flag-checkered' },
-  { valor: `+${aniosExperiencia}`, etiqueta: 'Anios de experiencia', icono: 'mdi:trophy-outline' },
+  { valor: `+${aniosExperiencia}`, etiqueta: 'Años de experiencia', icono: 'mdi:trophy-outline' },
   { ...site.cifrasExtra[0], icono: 'mdi:clock-outline' },
   { ...site.cifrasExtra[1], icono: 'mdi:cog-outline' },
 ];
@@ -50,7 +50,7 @@ const iconosSector: Record<string, string> = {
   <Hero
     titulo="Reparacion, repuestos y componentes"
     resaltado="para mineria"
-    subtitulo="Mas de 15 anios en ingenieria, mantenimiento, reparacion y fabricacion de partes para equipos moviles y flota auxiliar. Repuestos originales y suministros certificados, con atencion las 24 horas, los 365 dias del anio."
+    subtitulo="Mas de 15 años en ingenieria, mantenimiento, reparacion y fabricacion de partes para equipos moviles y flota auxiliar. Repuestos originales y suministros certificados, con atencion las 24 horas, los 365 dias del año."
   />
 
   {/* Franja de credibilidad */}
@@ -66,8 +66,8 @@ const iconosSector: Record<string, string> = {
           icono="mdi:office-building-outline"
         />
         <p class="mt-6 leading-relaxed text-marca-secundario">
-          {site.nombre} es una empresa peruana con mas de 15 anios de experiencia, especialista
-          en ingenieria, diseno, mantenimiento, reparacion y fabricacion de partes para equipos
+          {site.nombre} es una empresa peruana con mas de 15 años de experiencia, especialista
+          en ingenieria, diseño, mantenimiento, reparacion y fabricacion de partes para equipos
           moviles y flota auxiliar. Contribuimos al exito de clientes de los sectores minero,
           construccion y pesquero, asegurando disponibilidad, confiabilidad y eficiencia tecnica.
         </p>

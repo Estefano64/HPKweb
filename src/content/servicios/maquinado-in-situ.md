@@ -8,7 +8,7 @@ items:
   - Barrenado y restauracion dimensional.
   - Intervencion en campo para reduccion de tiempos.
   - Equipos automaticos.
-cierre: Maxima estabilidad, seguridad y desempeno en todo terreno.
+cierre: Maxima estabilidad, seguridad y desempeño en todo terreno.
 orden: 2
 destacado: true
 ---

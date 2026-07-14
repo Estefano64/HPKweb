@@ -18,7 +18,7 @@ const { cifras } = Astro.props;
 ---
 
 <section class="bg-marca-primario">
-  <dl class="contenedor grid grid-cols-2 gap-y-10 py-12 md:grid-cols-4 md:py-14">
+  <dl class="contenedor grid grid-cols-2 gap-y-8 py-8 md:grid-cols-4 md:py-10">
     {
       cifras.map((cifra, i) => (
         <div
@@ -28,7 +28,7 @@ const { cifras } = Astro.props;
           style={`--reveal-delay:${i * 90}ms`}
         >
           {cifra.icono && (
-            <Icon name={cifra.icono} class="mb-3 h-9 w-9 text-marca-resalte" />
+            <Icon name={cifra.icono} class="mb-2 h-8 w-8 text-marca-resalte" />
           )}
           <dt class="font-display text-4xl text-white md:text-5xl">{cifra.valor}</dt>
           <dd class="mt-1 text-xs font-semibold uppercase tracking-wider text-white/70 md:text-sm">

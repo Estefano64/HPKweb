@@ -55,7 +55,7 @@ export const site = {
   /** Propuesta de valor breve, usada en SEO y hero */
   lema: 'Reparacion, suministro de repuestos y componentes para mineria',
   descripcion:
-    'HP&K Inversiones S.R.L. es una empresa peruana con mas de 15 anios de experiencia en ingenieria, diseno, mantenimiento, reparacion y fabricacion de partes para equipos moviles y flota auxiliar. Atendemos a los sectores minero, construccion y pesquero desde Arequipa, con repuestos originales y suministros certificados.',
+    'HP&K Inversiones S.R.L. es una empresa peruana con mas de 15 años de experiencia en ingenieria, diseño, mantenimiento, reparacion y fabricacion de partes para equipos moviles y flota auxiliar. Atendemos a los sectores minero, construccion y pesquero desde Arequipa, con repuestos originales y suministros certificados.',
 
   /** Palabras clave para SEO (se usan como meta keywords global) */
   palabrasClave: [
@@ -63,7 +63,7 @@ export const site = {
     'maquinado in situ y barrenado',
     'overhaul de componentes mineros',
     'mandos y frenos maquinaria pesada',
-    'diseno estructural minero AISC ASTM',
+    'diseño estructural minero AISC ASTM',
     'reparacion estructural y soldadura certificada',
     'fabricacion de piezas acero aluminio bronce',
     'venta de repuestos CAT Komatsu Arequipa',
@@ -80,7 +80,7 @@ export const site = {
   whatsapp: '987 901 187',
 
   /** Horario / disponibilidad de atencion */
-  horario: 'Atencion las 24 horas, los 365 dias del anio',
+  horario: 'Atencion las 24 horas, los 365 dias del año',
 
   /**
    * Redes sociales. Deja en cadena vacia ('') las que no se usen: las vacias
@@ -122,7 +122,7 @@ export const site = {
     { titulo: 'Seguridad', resumen: 'Trabajamos con la meta de cero incidentes y rigurosos estandares de seguridad y salud ocupacional.' },
     { titulo: 'Confiabilidad', resumen: 'Aseguramos disponibilidad y eficiencia tecnica en cada equipo y componente.' },
     { titulo: 'Calidad', resumen: 'Repuestos originales, suministros certificados y control de calidad verificable.' },
-    { titulo: 'Compromiso', resumen: 'Disponibles las 24 horas, los 365 dias del anio, como socios estrategicos del cliente.' },
+    { titulo: 'Compromiso', resumen: 'Disponibles las 24 horas, los 365 dias del año, como socios estrategicos del cliente.' },
   ],
 
   /**
@@ -232,8 +232,8 @@ export const site = {
     },
     {
       id: 'iluminacion-senalizacion',
-      titulo: 'Iluminacion y senalizacion',
-      resumen: 'Iluminacion LED y elementos de senalizacion y seguridad vial.',
+      titulo: 'Iluminacion y señalizacion',
+      resumen: 'Iluminacion LED y elementos de señalizacion y seguridad vial.',
       items: ['Faros LED', 'Circulina LED', 'Barreras viales', 'Ordenadores / delineadores'],
     },
     {
@@ -252,7 +252,7 @@ export const site = {
       id: 'fabricacion',
       titulo: 'Fabricacion en acero / aluminio / bronce',
       resumen: 'Piezas fabricadas a medida segun plano o muestra.',
-      items: ['Diseno de piezas a medida', 'Pistones y bocinas', 'Rectificado e inspeccion dimensional', 'Tratamiento termico'],
+      items: ['Diseño de piezas a medida', 'Pistones y bocinas', 'Rectificado e inspeccion dimensional', 'Tratamiento termico'],
     },
   ] as CategoriaRepuesto[],
 
