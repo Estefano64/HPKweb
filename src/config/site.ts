@@ -263,6 +263,11 @@ export const site = {
    * [PENDIENTE: reemplazar por fotos reales del taller, trabajos y equipo.]
    */
   galeria: [
+    { archivo: 'taller-01.jpg', alt: 'HP&K Inversiones en feria: fabricación de componentes para maquinaria pesada' },
+    { archivo: 'taller-04.jpg', alt: 'Equipo de HP&K Inversiones frente al taller en Arequipa' },
+    { archivo: 'taller-02.jpg', alt: 'Armado de componente de gran tonelaje en el taller' },
+    { archivo: 'taller-03.jpg', alt: 'Reparación de estructura y componente de maquinaria pesada' },
+    { archivo: 'taller-05.jpg', alt: 'Detalle de mangueras y sistema hidráulico de maquinaria pesada' },
     { archivo: 'galeria-01.png', alt: 'Componente de maquinaria pesada reparado en el taller de HP&K' },
     { archivo: 'galeria-02.jpg', alt: 'Reparación de cilindros hidráulicos de maquinaria pesada' },
     { archivo: 'galeria-03.png', alt: 'Maquinado in situ y barrenado con equipo portátil WS2' },

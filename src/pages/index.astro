@@ -16,24 +16,18 @@ import IconoWA from '../components/IconoWA.astro';
 import { Icon } from 'astro-icon/components';
 import { site, waHref } from '../config/site';
 import { imagenServicio, imagenGaleria } from '../lib/imagenes';
+import CarruselFotos from '../components/CarruselFotos.astro';
 
-// Fotos reales del taller para la franja de la portada.
-import tallerFoto1 from '../assets/home/taller-01.jpg';
-import tallerFoto2 from '../assets/home/taller-02.jpg';
-import tallerFoto3 from '../assets/home/taller-03.jpg';
-const fotosTaller = [
-  { src: tallerFoto1, alt: 'HP&K Inversiones en feria: fabricación de componentes para maquinaria pesada' },
-  { src: tallerFoto2, alt: 'Armado de componente de gran tonelaje en el taller' },
-  { src: tallerFoto3, alt: 'Reparación de estructura y componente de maquinaria pesada' },
-];
+// Fotos reales del taller para el carrusel de la portada (tambien salen en la galería).
+const fotosTaller = ['taller-01.jpg', 'taller-04.jpg', 'taller-02.jpg', 'taller-03.jpg', 'taller-05.jpg'].map((archivo) => ({
+  src: imagenGaleria(archivo),
+  alt: site.galeria.find((g) => g.archivo === archivo)?.alt ?? '',
+}));
 
 // Todos los servicios (para el carrusel de la portada).
 const servicios = (await getCollection('servicios'))
   .sort((a, b) => a.data.orden - b.data.orden)
   .map((s) => ({ ...s, imagen: imagenServicio(s.id) }));
-
-// Una muestra de la galería para el avance de la portada (primeras 4).
-const muestraGaleria = site.galeria.slice(0, 4).map((f) => ({ ...f, src: imagenGaleria(f.archivo) }));
 
 // Franja de cifras: las dos primeras se calculan; las otras vienen de site.ts.
 const aniosExperiencia = new Date().getFullYear() - Number(site.empresa.anioFundacion);
@@ -110,23 +104,22 @@ const iconosPilares = ['mdi:shield-check-outline', 'mdi:handshake-outline'];
     </div>
   </section>
 
-  {/* Franja de fotos reales del taller */}
-  <section class="bg-marca-primario py-4">
-    <div class="grid gap-1 sm:grid-cols-3">
-      {
-        fotosTaller.map((foto, i) => (
-          <div class="group relative overflow-hidden" data-reveal style={`--reveal-delay:${i * 100}ms`}>
-            <Image
-              src={foto.src}
-              alt={foto.alt}
-              class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              width={1000}
-              height={750}
-              loading="lazy"
-            />
-          </div>
-        ))
-      }
+  {/* Carrusel de fotos reales del taller (desliza + clic para ampliar) */}
+  <section class="seccion">
+    <div class="contenedor">
+      <SectionHeading
+        etiqueta="El taller"
+        titulo="Así trabajamos"
+        descripcion="Un vistazo a nuestras instalaciones, equipo y trabajos. Desliza y haz clic en una foto para ampliarla."
+        icono="mdi:image-multiple-outline"
+        centrado
+      />
+      <div class="mt-10" data-reveal>
+        <CarruselFotos fotos={fotosTaller} />
+      </div>
+      <div class="mt-8 text-center">
+        <a href="/galeria/" class="btn-secundario">Ver galería completa</a>
+      </div>
     </div>
   </section>
 
@@ -210,36 +203,6 @@ const iconosPilares = ['mdi:shield-check-outline', 'mdi:handshake-outline'];
           ))
         }
       </ul>
-    </div>
-  </section>
-
-  {/* Galería (avance) */}
-  <section class="seccion">
-    <div class="contenedor">
-      <SectionHeading etiqueta="Galería" titulo="Nuestro trabajo" icono="mdi:image-multiple-outline" centrado />
-      <div class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
-        {
-          muestraGaleria.map((foto, i) => (
-            <div
-              class="group overflow-hidden rounded-lg border border-marca-borde"
-              data-reveal
-              style={`--reveal-delay:${i * 90}ms`}
-            >
-              <Image
-                src={foto.src}
-                alt={foto.alt}
-                class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                width={600}
-                height={450}
-                loading="lazy"
-              />
-            </div>
-          ))
-        }
-      </div>
-      <div class="mt-10 text-center">
-        <a href="/galeria/" class="btn-secundario">Ver galería completa</a>
-      </div>
     </div>
   </section>
 

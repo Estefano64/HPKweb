@@ -30,7 +30,7 @@ const { cifras } = Astro.props;
           {cifra.icono && (
             <Icon name={cifra.icono} class="mb-2 h-8 w-8 text-marca-resalte" />
           )}
-          <dt class="font-display text-4xl text-white md:text-5xl">{cifra.valor}</dt>
+          <dt class="font-display text-4xl text-white md:text-5xl" data-contador>{cifra.valor}</dt>
           <dd class="mt-1 text-xs font-semibold uppercase tracking-wider text-white/70 md:text-sm">
             {cifra.etiqueta}
           </dd>
@@ -39,3 +39,45 @@ const { cifras } = Astro.props;
     }
   </dl>
 </section>
+
+<script>
+  // Anima (cuenta ascendente) los valores puramente numericos al entrar en pantalla.
+  // Los valores con simbolos (24/7, 3D) se muestran tal cual.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const contadores = document.querySelectorAll<HTMLElement>('[data-contador]');
+
+  const animar = (el: HTMLElement) => {
+    const texto = (el.textContent ?? '').trim();
+    const m = texto.match(/^(\+)?(\d+)$/);
+    if (!m) return; // solo numeros puros (opcional prefijo +)
+    const prefijo = m[1] ?? '';
+    const fin = parseInt(m[2], 10);
+    const duracion = 1300;
+    let inicio = 0;
+    const paso = (t: number) => {
+      if (!inicio) inicio = t;
+      const p = Math.min(1, (t - inicio) / duracion);
+      const val = Math.round((1 - Math.pow(1 - p, 3)) * fin); // easeOutCubic
+      el.textContent = prefijo + val;
+      if (p < 1) requestAnimationFrame(paso);
+    };
+    requestAnimationFrame(paso);
+  };
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    // sin animacion: se quedan con su valor final (ya renderizado)
+  } else {
+    const io = new IntersectionObserver(
+      (entradas) => {
+        entradas.forEach((e) => {
+          if (e.isIntersecting) {
+            io.unobserve(e.target);
+            animar(e.target as HTMLElement);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    contadores.forEach((el) => io.observe(el));
+  }
+</script>
