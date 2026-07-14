@@ -18,6 +18,27 @@ const servicios = (await getCollection('servicios'))
   .sort((a, b) => a.data.orden - b.data.orden)
   .map((s) => ({ ...s, imagen: imagenServicio(s.id) }));
 
+// Datos estructurados: lista de servicios (Schema.org) para SEO.
+const esquemaServicios = [
+  {
+    '@type': 'ItemList',
+    name: `Servicios de ${site.nombreCorto}`,
+    itemListElement: servicios.map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Service',
+        name: s.data.titulo,
+        description: s.data.resumen,
+        url: `${site.url}/servicios/#${s.id}`,
+        provider: { '@id': `${site.url}/#empresa` },
+        areaServed: site.sectores,
+        serviceType: s.data.titulo,
+      },
+    })),
+  },
+];
+
 /** Divide el titulo en [antes, resaltado, despues] segun el fragmento "resalte". */
 function dividirTitulo(titulo: string, resalte?: string): [string, string, string] {
   if (!resalte) return [titulo, '', ''];
@@ -31,6 +52,7 @@ function dividirTitulo(titulo: string, resalte?: string): [string, string, strin
   titulo="Servicios"
   descripcion="Reparacion de cilindros hidraulicos, maquinado in situ, overhaul, mandos y frenos, diseno y reparacion estructural y fabricaciones en Arequipa, para los sectores minero, construccion y pesquero."
   palabrasClave={['reparacion de cilindros hidraulicos', 'maquinado in situ', 'overhaul de componentes', 'diseno estructural minero']}
+  esquemas={esquemaServicios}
 >
   <section class="border-b border-marca-borde bg-marca-niebla">
     <div class="contenedor py-16 md:py-20">

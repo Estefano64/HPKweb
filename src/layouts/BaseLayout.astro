@@ -31,13 +31,16 @@ interface Props {
   palabrasClave?: string[];
   /** Imagen para compartir en redes (ruta absoluta o relativa a la raiz) */
   imagen?: string;
+  /** Esquemas JSON-LD adicionales de la pagina (se anaden al @graph global) */
+  esquemas?: Record<string, unknown>[];
 }
 
 const {
   titulo,
   descripcion = site.descripcion,
   palabrasClave = [],
-  imagen = '/og-image.svg',
+  imagen = '/og-image.png',
+  esquemas = [],
 } = Astro.props;
 
 const tituloCompleto = `${titulo} | ${site.nombreCorto}`;
@@ -46,20 +49,29 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
 const imagenAbs = new URL(imagen, site.url).href;
 const keywords = [...palabrasClave, ...site.palabrasClave].join(', ');
 
-// Datos estructurados (Schema.org) para SEO local: ayuda a Google a entender
-// que es una empresa local con telefono, direccion y horario.
-const jsonLd = {
-  '@context': 'https://schema.org',
+// Datos estructurados (Schema.org) como @graph: empresa local + sitio web +
+// migas de pan (breadcrumbs) por ruta + cualquier esquema propio de la pagina.
+const orgId = `${site.url}/#empresa`;
+const webId = `${site.url}/#website`;
+
+// Redes sociales no vacias -> sameAs (mejora el reconocimiento de la marca).
+const sameAs = Object.values(site.redes).filter(Boolean);
+
+const empresa = {
   '@type': 'LocalBusiness',
+  '@id': orgId,
   name: site.nombre,
   alternateName: site.nombreCorto,
   url: site.url,
   description: site.descripcion,
+  slogan: site.eslogan,
   email: site.email,
   telephone: site.telefonos.map((t) => telHref(t)),
   image: imagenAbs,
+  logo: new URL('/og-image.png', site.url).href,
   foundingDate: site.empresa.anioFundacion,
   taxID: site.empresa.ruc,
+  vatID: site.empresa.ruc,
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.empresa.direccionLegal,
@@ -73,7 +85,52 @@ const jsonLd = {
     longitude: site.empresa.lng,
   },
   areaServed: site.sectores,
-  openingHours: 'Mo-Fr 08:00-18:00, Sa 08:00-13:00',
+  // Atencion 24/7 (coincide con el horario publicado en el sitio).
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '00:00',
+    closes: '23:59',
+  },
+  ...(sameAs.length ? { sameAs } : {}),
+};
+
+const webSite = {
+  '@type': 'WebSite',
+  '@id': webId,
+  url: site.url,
+  name: site.nombre,
+  inLanguage: 'es-PE',
+  publisher: { '@id': orgId },
+};
+
+// Migas de pan a partir de la ruta actual (usa las etiquetas del menu).
+const segmentos = Astro.url.pathname.split('/').filter(Boolean);
+const migas = [{ name: 'Inicio', url: `${site.url}/` }];
+let ruta = '';
+for (const seg of segmentos) {
+  ruta += `/${seg}`;
+  const enlace = site.nav.find((n) => n.href === `${ruta}/`);
+  migas.push({ name: enlace?.texto ?? seg, url: new URL(`${ruta}/`, site.url).href });
+}
+const breadcrumb =
+  migas.length > 1
+    ? [
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: migas.map((m, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            name: m.name,
+            item: m.url,
+          })),
+        },
+      ]
+    : [];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [empresa, webSite, ...breadcrumb, ...esquemas],
 };
 ---
 
@@ -101,12 +158,17 @@ const jsonLd = {
     <meta property="og:description" content={descripcion} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={imagenAbs} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={site.nombre} />
 
     {/* Twitter / X */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={tituloCompleto} />
     <meta name="twitter:description" content={descripcion} />
     <meta name="twitter:image" content={imagenAbs} />
+    <meta name="twitter:image:alt" content={site.nombre} />
 
     <meta name="generator" content={Astro.generator} />
 
