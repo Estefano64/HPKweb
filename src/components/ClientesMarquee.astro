@@ -1,0 +1,131 @@
+---
+/* ==========================================================================
+   CLIENTES MARQUEE — Pasarela infinita de logos de clientes
+   Carrusel horizontal continuo (CSS puro, sin JS). Se pausa al pasar el mouse
+   y se detiene si el usuario prefiere menos movimiento (accesibilidad).
+   Cada logo va en una tarjeta blanca para unificar fondos.
+   ========================================================================== */
+import { Image } from 'astro:assets';
+
+import lasBambas from '../assets/clientes/las-bambas.png';
+import antapaccay from '../assets/clientes/antapaccay.png';
+import angloAmerican from '../assets/clientes/anglo-american.png';
+import cosapi from '../assets/clientes/cosapi.png';
+import inkabor from '../assets/clientes/inkabor.png';
+import hudbay from '../assets/clientes/hudbay.png';
+import buenaventura from '../assets/clientes/buenaventura.png';
+import southernCopper from '../assets/clientes/southern-copper.png';
+import unimaqCat from '../assets/clientes/unimaq-cat.png';
+
+const logos = [
+  { nombre: 'Las Bambas', img: lasBambas },
+  { nombre: 'Antapaccay', img: antapaccay },
+  { nombre: 'Anglo American', img: angloAmerican },
+  { nombre: 'Cosapi', img: cosapi },
+  { nombre: 'Inkabor', img: inkabor },
+  { nombre: 'Hudbay', img: hudbay },
+  { nombre: 'Buenaventura', img: buenaventura },
+  { nombre: 'Southern Copper', img: southernCopper },
+  { nombre: 'Unimaq - CAT Rental Store', img: unimaqCat },
+];
+
+// Se duplica la lista para que el bucle sea continuo (translateX -50%).
+const secuencia = [...logos, ...logos];
+---
+
+<div class="marquee" role="list" aria-label="Clientes que confian en nosotros">
+  <div class="marquee__track">
+    {
+      secuencia.map((logo, i) => (
+        <div class="marquee__item" role="listitem" aria-hidden={i >= logos.length ? 'true' : undefined}>
+          <Image
+            src={logo.img}
+            alt={i < logos.length ? `Logo de ${logo.nombre}` : ''}
+            class="marquee__logo"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    width: 100%;
+    /* Difuminado en los bordes para un acabado limpio */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 45s linear infinite;
+  }
+
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
+
+  .marquee__item {
+    display: flex;
+    height: 6rem;
+    min-width: 9rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-marca-borde);
+    background: #fff;
+    padding: 0 2rem;
+    /* Separacion como margen (no gap) para que ambas copias sean identicas
+       y el bucle en -50% quede continuo, sin saltos. */
+    margin-right: 1.5rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  }
+
+  /* Todos los logos a la misma altura; la tarjeta crece a lo ancho segun el logo. */
+  .marquee__logo {
+    height: 3rem;
+    width: auto;
+    max-width: 16rem;
+    object-fit: contain;
+  }
+
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      /* Mueve exactamente la mitad (una copia completa) => bucle sin cortes */
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Accesibilidad: sin animacion si el usuario lo prefiere */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .marquee__track {
+      animation: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      gap: 1.5rem;
+    }
+    .marquee__item {
+      margin-right: 0;
+    }
+  }
+</style>

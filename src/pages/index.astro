@@ -11,6 +11,7 @@ import SectionHeading from '../components/SectionHeading.astro';
 import PilarCard from '../components/PilarCard.astro';
 import ServicioCard from '../components/ServicioCard.astro';
 import SedeCard from '../components/SedeCard.astro';
+import ClientesMarquee from '../components/ClientesMarquee.astro';
 import IconoWA from '../components/IconoWA.astro';
 import { Icon } from 'astro-icon/components';
 import { site, waHref } from '../config/site';
@@ -165,19 +166,9 @@ const iconosSector: Record<string, string> = {
         icono="mdi:handshake-outline"
         centrado
       />
-      <ul class="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-        {
-          site.clientes.map((cliente, i) => (
-            <li
-              class="flex items-center justify-center rounded-lg border border-marca-borde bg-white px-4 py-6 text-center text-sm font-bold text-marca-primario transition-all duration-300 hover:-translate-y-1 hover:border-marca-acento/40 hover:shadow-md"
-              data-reveal
-              style={`--reveal-delay:${(i % 5) * 80}ms`}
-            >
-              {cliente}
-            </li>
-          ))
-        }
-      </ul>
+      <div class="mt-12" data-reveal>
+        <ClientesMarquee />
+      </div>
     </div>
   </section>
 
