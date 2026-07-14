@@ -1,7 +1,7 @@
 ---
 /* ==========================================================================
    PAGINA: REPUESTOS
-   Catalogo por categorias. Cada tarjeta tiene un boton "Pedir por WhatsApp"
+   Catalogo por categorías. Cada tarjeta tiene un boton "Pedir por WhatsApp"
    que abre el chat con el pedido prellenado. Los datos salen de
    site.ts -> repuestos.
    ========================================================================== */
@@ -19,7 +19,7 @@ const waGeneral = waHref(
 
 <BaseLayout
   titulo="Repuestos"
-  descripcion="Venta de repuestos, partes y accesorios para maquinaria pesada e industrial en Arequipa: hidraulicos, tren de rodaje, motor, piezas de desgaste y mas. Cotice por WhatsApp."
+  descripcion="Venta de repuestos, partes y accesorios para maquinaria pesada e industrial en Arequipa: hidráulicos, tren de rodaje, motor, piezas de desgaste y más. Cotice por WhatsApp."
   palabrasClave={['venta de repuestos mineros', 'repuestos maquinaria pesada Arequipa', 'cotizar repuestos por WhatsApp']}
 >
   <section class="border-b border-marca-borde bg-marca-niebla">
@@ -27,7 +27,7 @@ const waGeneral = waHref(
       <SectionHeading
         etiqueta="Repuestos"
         titulo="Repuestos y componentes para su maquinaria"
-        descripcion="Suministramos partes, piezas y accesorios para los sectores minero e industrial. Pida su cotizacion directamente por WhatsApp: respondemos rapido."
+        descripcion="Suministramos partes, piezas y accesorios para los sectores minero e industrial. Pida su cotización directamente por WhatsApp: respondemos rápido."
         icono="mdi:cog-box"
       />
       <a href={waGeneral} target="_blank" rel="noopener" class="btn-primario mt-8 whitespace-nowrap !bg-[#25D366] hover:!bg-[#1da851]">
@@ -37,7 +37,7 @@ const waGeneral = waHref(
     </div>
   </section>
 
-  {/* Catalogo por categorias */}
+  {/* Catalogo por categorías */}
   <section class="seccion">
     <div class="contenedor">
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -55,13 +55,13 @@ const waGeneral = waHref(
   {/* Como pedir */}
   <section class="seccion bg-marca-niebla">
     <div class="contenedor">
-      <SectionHeading etiqueta="Como pedir" titulo="Cotizar es muy facil" icono="mdi:cursor-default-click-outline" centrado />
+      <SectionHeading etiqueta="Cómo pedir" titulo="Cotizar es muy fácil" icono="mdi:cursor-default-click-outline" centrado />
       <ol class="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-3">
         {
           [
-            { n: '1', t: 'Identifique la pieza', d: 'Tenga a mano la marca y modelo del equipo y, si puede, el numero de parte o una foto.', icono: 'mdi:magnify' },
-            { n: '2', t: 'Escribanos por WhatsApp', d: 'Pulse "Pedir por WhatsApp" en la categoria o use el boton general. El mensaje va prellenado.', icono: 'mdi:whatsapp' },
-            { n: '3', t: 'Reciba su cotizacion', d: 'Confirmamos disponibilidad, precio y tiempo de entrega a la brevedad.', icono: 'mdi:file-check-outline' },
+            { n: '1', t: 'Identifique la pieza', d: 'Tenga a mano la marca y modelo del equipo y, si puede, el número de parte o una foto.', icono: 'mdi:magnify' },
+            { n: '2', t: 'Escríbanos por WhatsApp', d: 'Pulse "Pedir por WhatsApp" en la categoría o use el botón general. El mensaje va prellenado.', icono: 'mdi:whatsapp' },
+            { n: '3', t: 'Reciba su cotización', d: 'Confirmamos disponibilidad, precio y tiempo de entrega a la brevedad.', icono: 'mdi:file-check-outline' },
           ].map((p, i) => (
             <li
               class="relative rounded-lg border border-marca-borde bg-white p-6"

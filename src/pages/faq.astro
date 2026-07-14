@@ -11,44 +11,44 @@ import { Icon } from 'astro-icon/components';
 import { site, waHref } from '../config/site';
 
 // Preguntas y respuestas. El texto se usa tal cual en la pagina y en el
-// esquema FAQPage, asi que debe ser texto plano (sin enlaces ni HTML).
+// esquema FAQPage, así que debe ser texto plano (sin enlaces ni HTML).
 const faqs: { pregunta: string; respuesta: string }[] = [
   {
-    pregunta: '¿Que servicios ofrece HP&K Inversiones?',
+    pregunta: '¿Qué servicios ofrece HP&K Inversiones?',
     respuesta:
-      'Ofrecemos reparacion de cilindros hidraulicos, maquinado in situ y barrenado, overhaul de componentes, reparacion de mandos y frenos, diseño y reparacion estructural, y fabricacion de piezas en acero, aluminio y bronce para maquinaria pesada y flota auxiliar.',
+      'Ofrecemos reparación de cilindros hidráulicos, maquinado in situ y barrenado, overhaul de componentes, reparación de mandos y frenos, diseño y reparación estructural, y fabricación de piezas en acero, aluminio y bronce para maquinaria pesada y flota auxiliar.',
   },
   {
-    pregunta: '¿Que marcas de maquinaria atienden?',
+    pregunta: '¿Qué marcas de maquinaria atienden?',
     respuesta:
-      'Trabajamos con repuestos y componentes originales para marcas lideres como CAT y Komatsu, ademas de la fabricacion y suministro de piezas a pedido para distintos equipos moviles y de flota auxiliar.',
+      'Trabajamos con repuestos y componentes originales para marcas líderes como CAT y Komatsu, además de la fabricación y suministro de piezas a pedido para distintos equipos móviles y de flota auxiliar.',
   },
   {
-    pregunta: '¿A que sectores e industrias atienden?',
-    respuesta: `Atendemos principalmente a los sectores de ${site.sectores.join(', ')}, desde nuestra sede en Arequipa y en faena segun las necesidades de cada cliente.`,
+    pregunta: '¿A qué sectores e industrias atienden?',
+    respuesta: `Atendemos principalmente a los sectores de ${site.sectores.join(', ')}, desde nuestra sede en Arequipa y en faena según las necesidades de cada cliente.`,
   },
   {
     pregunta: '¿Los repuestos son originales?',
     respuesta:
-      'Si. Trabajamos con repuestos originales y suministros certificados, con control de calidad verificable, para asegurar la disponibilidad y confiabilidad de sus equipos.',
+      'Sí. Trabajamos con repuestos originales y suministros certificados, con control de calidad verificable, para asegurar la disponibilidad y confiabilidad de sus equipos.',
   },
   {
-    pregunta: '¿Como puedo solicitar una cotizacion?',
-    respuesta: `Puede escribirnos por WhatsApp al ${site.whatsapp}, enviarnos un correo a ${site.email} o completar el formulario de la pagina de contacto. Le responderemos con la informacion y el tiempo estimado tras evaluar su requerimiento.`,
+    pregunta: '¿Cómo puedo solicitar una cotización?',
+    respuesta: `Puede escribirnos por WhatsApp al ${site.whatsapp}, enviarnos un correo a ${site.email} o completar el formulario de la página de contacto. Le responderemos con la información y el tiempo estimado tras evaluar su requerimiento.`,
   },
   {
     pregunta: '¿Realizan trabajos en sitio (in situ)?',
     respuesta:
-      'Si. Contamos con maquinado in situ y barrenado con equipos portatiles, lo que permite intervenir componentes directamente en la ubicacion del equipo cuando su traslado no es viable.',
+      'Sí. Contamos con maquinado in situ y barrenado con equipos portátiles, lo que permite intervenir componentes directamente en la ubicación del equipo cuando su traslado no es viable.',
   },
   {
     pregunta: '¿Cuentan con ensayos y control de calidad?',
     respuesta:
-      'Realizamos ensayos no destructivos (NDT), ultrasonido y escaneo 3D con tecnologia alemana, ademas de pruebas de funcionamiento, para garantizar la calidad y la vida util de cada componente reparado.',
+      'Realizamos ensayos no destructivos (NDT), ultrasonido y escaneo 3D con tecnología alemana, además de pruebas de funcionamiento, para garantizar la calidad y la vida útil de cada componente reparado.',
   },
   {
-    pregunta: '¿Cual es el horario y la ubicacion de atencion?',
-    respuesta: `Brindamos ${site.horario.toLowerCase()}. Nuestra sede esta en ${site.empresa.direccionLegal}.`,
+    pregunta: '¿Cuál es el horario y la ubicación de atención?',
+    respuesta: `Brindamos ${site.horario.toLowerCase()}. Nuestra sede está en ${site.empresa.direccionLegal}.`,
   },
 ];
 
@@ -70,8 +70,8 @@ const esquemaFaq = [
 
 <BaseLayout
   titulo="Preguntas frecuentes"
-  descripcion="Respuestas a las preguntas mas comunes sobre los servicios de reparacion, repuestos originales, marcas atendidas, cotizaciones y cobertura de HP&K Inversiones en Arequipa."
-  palabrasClave={['preguntas frecuentes', 'reparacion maquinaria pesada Arequipa', 'repuestos originales CAT Komatsu', 'cotizacion repuestos mineria']}
+  descripcion="Respuestas a las preguntas más comunes sobre los servicios de reparación, repuestos originales, marcas atendidas, cotizaciones y cobertura de HP&K Inversiones en Arequipa."
+  palabrasClave={['preguntas frecuentes', 'reparación maquinaria pesada Arequipa', 'repuestos originales CAT Komatsu', 'cotización repuestos minería']}
   esquemas={esquemaFaq}
 >
   {/* Encabezado */}
@@ -79,8 +79,8 @@ const esquemaFaq = [
     <div class="contenedor py-16 md:py-20">
       <SectionHeading
         etiqueta="Preguntas frecuentes"
-        titulo="Resolvemos tus dudas mas comunes"
-        descripcion="Todo lo que necesitas saber sobre nuestros servicios, repuestos, cobertura y como trabajar con nosotros. Si no encuentras tu respuesta, escribenos y con gusto te atendemos."
+        titulo="Resolvemos tus dudas más comunes"
+        descripcion="Todo lo que necesitas saber sobre nuestros servicios, repuestos, cobertura y cómo trabajar con nosotros. Si no encuentras tu respuesta, escríbenos y con gusto te atendemos."
         icono="mdi:help-circle-outline"
       />
     </div>
@@ -121,7 +121,7 @@ const esquemaFaq = [
         ¿No encontraste lo que buscabas?
       </h2>
       <p class="max-w-xl text-white/75">
-        Nuestro equipo te responde y cotiza tu requerimiento. Atencion las 24 horas, los 365 dias del año.
+        Nuestro equipo te responde y cotiza tu requerimiento. Atención las 24 horas, los 365 días del año.
       </p>
       <div class="flex flex-wrap justify-center gap-4">
         <a

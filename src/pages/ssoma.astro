@@ -9,7 +9,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { Icon } from 'astro-icon/components';
 
-// Icono por politica (segun el nombre del archivo .md).
+// Icono por politica (según el nombre del archivo .md).
 const iconosPolitica: Record<string, string> = {
   calidad: 'mdi:check-decagram-outline',
   'seguridad-salud': 'mdi:shield-check-outline',
@@ -28,14 +28,14 @@ const items = await Promise.all(
 
 <BaseLayout
   titulo="SSOMA"
-  descripcion="Politicas de calidad, seguridad, salud ocupacional, medio ambiente y relaciones comunitarias de HP&K Inversiones S.R.L."
+  descripcion="Políticas de calidad, seguridad, salud ocupacional, medio ambiente y relaciones comunitarias de HP&K Inversiones S.R.L."
 >
   <section class="border-b border-marca-borde bg-marca-niebla">
     <div class="contenedor py-16 md:py-20">
       <SectionHeading
         etiqueta="SSOMA"
         titulo="Compromiso con la seguridad, la calidad y el entorno"
-        descripcion="Operamos bajo politicas formales que protegen a nuestro personal, garantizan la calidad del servicio y cuidan a las comunidades y el medio ambiente."
+        descripcion="Operamos bajo políticas formales que protegen a nuestro personal, garantizan la calidad del servicio y cuidan a las comunidades y el medio ambiente."
         icono="mdi:shield-check-outline"
       />
     </div>
@@ -44,7 +44,7 @@ const items = await Promise.all(
   {/* Indice de politicas */}
   <section class="seccion">
     <div class="contenedor">
-      <nav aria-label="Indice de politicas" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <nav aria-label="Índice de políticas" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {
           items.map((politica, i) => (
             <a

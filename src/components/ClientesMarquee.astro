@@ -87,13 +87,13 @@ const secuencia = [...logos, ...logos];
     border: 1px solid var(--color-marca-borde);
     background: #fff;
     padding: 0 2rem;
-    /* Separacion como margen (no gap) para que ambas copias sean identicas
+    /* Separación como margen (no gap) para que ambas copias sean idénticas
        y el bucle en -50% quede continuo, sin saltos. */
     margin-right: 1.5rem;
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
   }
 
-  /* Todos los logos a la misma altura; la tarjeta crece a lo ancho segun el logo. */
+  /* Todos los logos a la misma altura; la tarjeta crece a lo ancho según el logo. */
   .marquee__logo {
     height: 3rem;
     width: auto;
@@ -111,7 +111,7 @@ const secuencia = [...logos, ...logos];
     }
   }
 
-  /* Accesibilidad: sin animacion si el usuario lo prefiere */
+  /* Accesibilidad: sin animación si el usuario lo prefiere */
   @media (prefers-reduced-motion: reduce) {
     .marquee {
       -webkit-mask-image: none;

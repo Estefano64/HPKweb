@@ -10,19 +10,19 @@ import IconoWA from '../components/IconoWA.astro';
 import { Icon } from 'astro-icon/components';
 import { site, telHref, waHref } from '../config/site';
 
-const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`);
+const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera más información.`);
 ---
 
 <BaseLayout
   titulo="Contacto"
-  descripcion="Contacte a HP&K Inversiones S.R.L. en Arequipa: correo, telefonos y WhatsApp. Mantenimiento de maquinaria, componentes y venta de repuestos."
+  descripcion="Contacte a HP&K Inversiones S.R.L. en Arequipa: correo, teléfonos y WhatsApp. Mantenimiento de maquinaria, componentes y venta de repuestos."
 >
   <section class="border-b border-marca-borde bg-marca-niebla">
     <div class="contenedor py-16 md:py-20">
       <SectionHeading
         etiqueta="Contacto"
-        titulo="Conversemos sobre su operacion"
-        descripcion="Estamos en Arequipa, listos para atender su operacion."
+        titulo="Conversemos sobre su operación"
+        descripcion="Estamos en Arequipa, listos para atender su operación."
         icono="mdi:headset"
       />
     </div>
@@ -60,7 +60,7 @@ const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`)
               <Icon name="mdi:phone-outline" class="h-5 w-5" />
             </span>
             <span>
-              <span class="block text-xs font-semibold uppercase tracking-wide text-marca-secundario">Telefonos</span>
+              <span class="block text-xs font-semibold uppercase tracking-wide text-marca-secundario">Teléfonos</span>
               <span class="flex flex-wrap gap-x-4 font-semibold text-marca-primario">
                 {site.telefonos.map((tel) => (
                   <a href={`tel:${telHref(tel)}`} class="hover:text-marca-acento">{tel}</a>
@@ -97,7 +97,7 @@ const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`)
               <Icon name="mdi:clock-outline" class="h-5 w-5" />
             </span>
             <span>
-              <span class="block text-xs font-semibold uppercase tracking-wide text-marca-secundario">Horario de atencion</span>
+              <span class="block text-xs font-semibold uppercase tracking-wide text-marca-secundario">Horario de atención</span>
               <span class="font-semibold text-marca-primario">{site.horario}</span>
             </span>
           </div>
@@ -137,7 +137,7 @@ const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`)
 
       {/* Columna del formulario */}
       <div data-reveal style="--reveal-delay:120ms">
-        <h2 class="text-2xl font-bold">Escribanos</h2>
+        <h2 class="text-2xl font-bold">Escríbanos</h2>
         <p class="mt-2 text-marca-secundario">
           Complete el formulario y nos pondremos en contacto a la brevedad.
         </p>

@@ -1,16 +1,16 @@
 ---
-titulo: Reparacion estructural de flota auxiliar y miscelaneos
-resalte: flota auxiliar y miscelaneos
-resumen: Reparacion y recuperacion geometrica de estructuras, blindaje y montaje de GETs, cambio de planchas e inspeccion de soldadura.
+titulo: Reparación estructural de flota auxiliar y misceláneos
+resalte: flota auxiliar y misceláneos
+resumen: Reparación y recuperación geométrica de estructuras, blindaje y montaje de GETs, cambio de planchas e inspección de soldadura.
 items:
-  - Inspeccion, ensayos no destructivos (NDT) y evaluacion de corrosion.
-  - Reparacion y recuperacion geometrica.
+  - Inspección, ensayos no destructivos (NDT) y evaluación de corrosión.
+  - Reparación y recuperación geométrica.
   - Suministro de blindaje y montaje de GETs.
   - Cambio de planchas por soldadura.
-  - Verificacion de juntas e inspeccion de cordones de soldadura.
+  - Verificación de juntas e inspección de cordones de soldadura.
   - Pintado.
 orden: 6
 destacado: false
 ---
 
-Reparacion estructural de flota auxiliar y miscelaneos.
+Reparación estructural de flota auxiliar y misceláneos.

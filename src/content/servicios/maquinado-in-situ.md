@@ -1,16 +1,16 @@
 ---
 titulo: Maquinado in situ, barrenado y soldadura
 resalte: barrenado y soldadura
-resumen: Maquinado de precision portatil, barrenado y soldadura en campo para recuperar alojamientos desgastados y reducir tiempos de parada.
+resumen: Maquinado de precisión portátil, barrenado y soldadura en campo para recuperar alojamientos desgastados y reducir tiempos de parada.
 items:
-  - Recuperacion por soldadura de alojamientos desgastados.
-  - Maquinado de precision in situ.
-  - Barrenado y restauracion dimensional.
-  - Intervencion en campo para reduccion de tiempos.
-  - Equipos automaticos.
-cierre: Maxima estabilidad, seguridad y desempeño en todo terreno.
+  - Recuperación por soldadura de alojamientos desgastados.
+  - Maquinado de precisión in situ.
+  - Barrenado y restauración dimensional.
+  - Intervención en campo para reducción de tiempos.
+  - Equipos automáticos.
+cierre: Máxima estabilidad, seguridad y desempeño en todo terreno.
 orden: 2
 destacado: true
 ---
 
-Maquinado in situ y barrenado y soldadura con equipos portatiles automaticos.
+Maquinado in situ y barrenado y soldadura con equipos portátiles automáticos.

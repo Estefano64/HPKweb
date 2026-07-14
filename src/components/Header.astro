@@ -1,7 +1,7 @@
 ---
 /* ==========================================================================
-   HEADER — Barra de navegacion superior (reutilizable)
-   Responsive: menu horizontal en escritorio (lg+), menu desplegable en movil.
+   HEADER — Barra de navegación superior (reutilizable)
+   Responsive: menu horizontal en escritorio (lg+), menu desplegable en móvil.
    ========================================================================== */
 import { Image } from 'astro:assets';
 import { site, telHref, waHref } from '../config/site';
@@ -17,10 +17,10 @@ function esActivo(href: string): boolean {
   return rutaActual.startsWith(href);
 }
 
-const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`);
+const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera más información.`);
 ---
 
-{/* Barra superior utilitaria (correo + telefonos + WhatsApp). Se oculta en movil. */}
+{/* Barra superior utilitaria (correo + telefonos + WhatsApp). Se oculta en móvil. */}
 <div class="hidden bg-marca-primario text-white lg:block">
   <div class="contenedor flex h-9 items-center justify-between text-xs">
     <div class="flex items-center gap-4">
@@ -44,13 +44,13 @@ const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`)
         {site.whatsapp}
       </a>
       <span class="text-white/30" aria-hidden="true">|</span>
-      <span class="text-white/70">Arequipa, Peru</span>
+      <span class="text-white/70">Arequipa, Perú</span>
     </div>
   </div>
 </div>
 
 <header class="sticky top-0 z-50 border-b border-marca-borde bg-white/95 backdrop-blur">
-  <nav class="contenedor flex h-16 items-center justify-between" aria-label="Navegacion principal">
+  <nav class="contenedor flex h-16 items-center justify-between" aria-label="Navegación principal">
     {/* Logotipo de la empresa */}
     <a href="/" class="flex items-center" aria-label={`${site.nombre} - Inicio`}>
       <Image src={logo} alt={site.nombre} class="h-10 w-auto md:h-11" width={391} height={159} loading="eager" />
@@ -87,11 +87,11 @@ const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`)
       WhatsApp
     </a>
 
-    {/* Boton de menu movil */}
+    {/* Boton de menu móvil */}
     <button
       id="btn-menu"
       class="inline-flex items-center justify-center rounded p-2 text-marca-primario lg:hidden"
-      aria-label="Abrir menu"
+      aria-label="Abrir menú"
       aria-expanded="false"
       aria-controls="menu-movil"
     >
@@ -103,7 +103,7 @@ const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`)
     </button>
   </nav>
 
-  {/* Menu movil desplegable */}
+  {/* Menu móvil desplegable */}
   <div id="menu-movil" class="hidden border-t border-marca-borde bg-white lg:hidden">
     <ul class="contenedor flex flex-col py-2">
       {
@@ -133,12 +133,12 @@ const waContacto = waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`)
 </header>
 
 <script>
-  // Toggle del menu movil (JS minimo, sin dependencias).
+  // Toggle del menu móvil (JS mínimo, sin dependencias).
   const boton = document.getElementById('btn-menu');
   const menu = document.getElementById('menu-movil');
   boton?.addEventListener('click', () => {
     const abierto = menu?.classList.toggle('hidden') === false;
     boton.setAttribute('aria-expanded', String(abierto));
-    boton.setAttribute('aria-label', abierto ? 'Cerrar menu' : 'Abrir menu');
+    boton.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
   });
 </script>

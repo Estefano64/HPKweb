@@ -39,7 +39,7 @@ const esquemaServicios = [
   },
 ];
 
-/** Divide el titulo en [antes, resaltado, despues] segun el fragmento "resalte". */
+/** Divide el titulo en [antes, resaltado, despues] según el fragmento "resalte". */
 function dividirTitulo(titulo: string, resalte?: string): [string, string, string] {
   if (!resalte) return [titulo, '', ''];
   const i = titulo.toLowerCase().lastIndexOf(resalte.toLowerCase());
@@ -50,16 +50,16 @@ function dividirTitulo(titulo: string, resalte?: string): [string, string, strin
 
 <BaseLayout
   titulo="Servicios"
-  descripcion="Reparacion de cilindros hidraulicos, maquinado in situ, overhaul, mandos y frenos, diseño y reparacion estructural y fabricaciones en Arequipa, para los sectores minero, construccion y pesquero."
-  palabrasClave={['reparacion de cilindros hidraulicos', 'maquinado in situ', 'overhaul de componentes', 'diseño estructural minero']}
+  descripcion="Reparación de cilindros hidráulicos, maquinado in situ, overhaul, mandos y frenos, diseño y reparación estructural y fabricaciones en Arequipa, para los sectores minero, construcción y pesquero."
+  palabrasClave={['reparación de cilindros hidráulicos', 'maquinado in situ', 'overhaul de componentes', 'diseño estructural minero']}
   esquemas={esquemaServicios}
 >
   <section class="border-b border-marca-borde bg-marca-niebla">
     <div class="contenedor py-16 md:py-20">
       <SectionHeading
         etiqueta="Servicios"
-        titulo="Ingenieria, mantenimiento, reparacion y fabricacion"
-        descripcion="Servicios orientados a la disponibilidad, confiabilidad y vida util de sus equipos, para los sectores minero, construccion y pesquero."
+        titulo="Ingeniería, mantenimiento, reparación y fabricación"
+        descripcion="Servicios orientados a la disponibilidad, confiabilidad y vida útil de sus equipos, para los sectores minero, construcción y pesquero."
         icono="mdi:wrench-outline"
       />
     </div>
@@ -149,7 +149,7 @@ function dividirTitulo(titulo: string, resalte?: string): [string, string, strin
   <section class="bg-marca-primario">
     <div class="contenedor flex flex-col items-center gap-6 py-16 text-center">
       <h2 class="max-w-2xl text-3xl font-bold text-white">
-        Cuentenos que equipo necesita atender
+        Cuéntenos qué equipo necesita atender
       </h2>
       <div class="flex flex-wrap justify-center gap-4">
         <a href="/contacto/" class="btn-primario bg-white !text-marca-primario hover:bg-marca-niebla">

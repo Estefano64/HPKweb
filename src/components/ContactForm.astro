@@ -9,7 +9,7 @@
    del visitante):
    1. Crea una cuenta en un servicio de formularios (Formspree, Web3Forms, etc.)
       o usa un script PHP en cPanel.
-   2. En la etiqueta del formulario (mas abajo):
+   2. En la etiqueta del formulario (más abajo):
         - quita el atributo id="form-contacto" y elimina el bloque de script final,
         - agrega: method="POST" action="https://TU-ENDPOINT"
    3. Listo: los campos name ya estan definidos para el envio.
@@ -17,7 +17,7 @@
 import { site, waHref } from '../config/site';
 import IconoWA from './IconoWA.astro';
 
-// Numero de WhatsApp en formato wa.me (sin mensaje); el script le agrega el texto.
+// Número de WhatsApp en formato wa.me (sin mensaje); el script le agrega el texto.
 const waBase = waHref();
 ---
 
@@ -46,7 +46,7 @@ const waBase = waHref();
 
   <div class="grid gap-5 sm:grid-cols-2">
     <div>
-      <label for="correo" class="mb-1 block text-sm font-medium text-marca-tinta">Correo electronico</label>
+      <label for="correo" class="mb-1 block text-sm font-medium text-marca-tinta">Correo electrónico</label>
       <input
         type="email"
         id="correo"

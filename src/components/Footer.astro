@@ -1,7 +1,7 @@
 ---
 /* ==========================================================================
    FOOTER — Pie de pagina (reutilizable)
-   Muestra contacto, sedes y navegacion. Lee todo desde site.ts.
+   Muestra contacto, sedes y navegación. Lee todo desde site.ts.
    ========================================================================== */
 import { site, telHref, waHref } from '../config/site';
 import IconoWA from './IconoWA.astro';
@@ -46,7 +46,7 @@ const redes = (
           ))
         }
         <li>
-          <a href={waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`)} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-white/80">
+          <a href={waHref(`Hola ${site.nombreCorto}, quisiera más información.`)} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-white/80">
             <IconoWA size={15} />
             WhatsApp {site.whatsapp}
           </a>
@@ -89,7 +89,7 @@ const redes = (
   <div class="border-t border-white/10">
     <div class="contenedor flex flex-col items-center justify-between gap-3 py-5 text-xs text-white/60 sm:flex-row">
       <p>&copy; {anio} {site.nombre}. Todos los derechos reservados.</p>
-      <nav aria-label="Navegacion del pie">
+      <nav aria-label="Navegación del pie">
         <ul class="flex flex-wrap gap-x-5 gap-y-1">
           {
             site.nav.map((enlace) => (

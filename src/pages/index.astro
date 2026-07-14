@@ -23,7 +23,7 @@ const servicios = (await getCollection('servicios'))
   .sort((a, b) => a.data.orden - b.data.orden)
   .map((s) => ({ ...s, imagen: imagenServicio(s.id) }));
 
-// Una muestra de la galeria para el avance de la portada (primeras 4).
+// Una muestra de la galería para el avance de la portada (primeras 4).
 const muestraGaleria = site.galeria.slice(0, 4).map((f) => ({ ...f, src: imagenGaleria(f.archivo) }));
 
 // Franja de cifras: las dos primeras se calculan; las otras vienen de site.ts.
@@ -38,7 +38,7 @@ const cifras = [
 // Iconos para los pilares corporativos (Calidad / Confianza).
 const iconosPilares = ['mdi:shield-check-outline', 'mdi:handshake-outline'];
 
-// Iconos de mecanica por sector (mineria / construccion / pesca).
+// Iconos de mecánica por sector (minería / construcción / pesca).
 const iconosSector: Record<string, string> = {
   Mineria: 'mdi:excavator',
   Construccion: 'mdi:crane',
@@ -48,9 +48,9 @@ const iconosSector: Record<string, string> = {
 
 <BaseLayout titulo="Inicio">
   <Hero
-    titulo="Reparacion, repuestos y componentes"
-    resaltado="para mineria"
-    subtitulo="Mas de 15 años en ingenieria, mantenimiento, reparacion y fabricacion de partes para equipos moviles y flota auxiliar. Repuestos originales y suministros certificados, con atencion las 24 horas, los 365 dias del año."
+    titulo="Reparación, repuestos y componentes"
+    resaltado="para minería"
+    subtitulo="Más de 15 años en ingeniería, mantenimiento, reparación y fabricación de partes para equipos móviles y flota auxiliar. Repuestos originales y suministros certificados, con atención las 24 horas, los 365 días del año."
   />
 
   {/* Franja de credibilidad */}
@@ -66,12 +66,12 @@ const iconosSector: Record<string, string> = {
           icono="mdi:office-building-outline"
         />
         <p class="mt-6 leading-relaxed text-marca-secundario">
-          {site.nombre} es una empresa peruana con mas de 15 años de experiencia, especialista
-          en ingenieria, diseño, mantenimiento, reparacion y fabricacion de partes para equipos
-          moviles y flota auxiliar. Contribuimos al exito de clientes de los sectores minero,
-          construccion y pesquero, asegurando disponibilidad, confiabilidad y eficiencia tecnica.
+          {site.nombre} es una empresa peruana con más de 15 años de experiencia, especialista
+          en ingeniería, diseño, mantenimiento, reparación y fabricación de partes para equipos
+          móviles y flota auxiliar. Contribuimos al exito de clientes de los sectores minero,
+          construcción y pesquero, asegurando disponibilidad, confiabilidad y eficiencia técnica.
         </p>
-        <a href="/nosotros/" class="btn-secundario mt-8">Conocer mas</a>
+        <a href="/nosotros/" class="btn-secundario mt-8">Conocer más</a>
       </div>
 
       {/* Dos pilares */}
@@ -98,7 +98,7 @@ const iconosSector: Record<string, string> = {
       <SectionHeading
         etiqueta="Servicios"
         titulo="Que hacemos"
-        descripcion="Soluciones de mantenimiento integral pensadas para maximizar la disponibilidad y vida util de sus equipos."
+        descripcion="Soluciones de mantenimiento integral pensadas para maximizar la disponibilidad y vida útil de sus equipos."
         icono="mdi:wrench-outline"
         centrado
       />
@@ -134,7 +134,7 @@ const iconosSector: Record<string, string> = {
         <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-marca-resalte">Sectores</p>
         <h2 class="text-3xl font-bold text-white md:text-4xl">A quienes atendemos</h2>
         <p class="mt-4 text-lg text-white/75">
-          Trabajamos para operaciones que exigen disponibilidad, confiabilidad y eficiencia tecnica.
+          Trabajamos para operaciones que exigen disponibilidad, confiabilidad y eficiencia técnica.
         </p>
       </div>
       <ul class="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
@@ -179,8 +179,8 @@ const iconosSector: Record<string, string> = {
         <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-marca-resalte">Repuestos</p>
         <h2 class="text-3xl font-bold text-white">Repuestos y componentes a un mensaje de distancia</h2>
         <p class="mt-5 leading-relaxed text-white/80">
-          Hidraulicos, tren de rodaje, motor, piezas de desgaste y fabricacion bajo pedido.
-          Pida su cotizacion por WhatsApp: le respondemos rapido.
+          Hidráulicos, tren de rodaje, motor, piezas de desgaste y fabricación bajo pedido.
+          Pida su cotización por WhatsApp: le respondemos rápido.
         </p>
         <div class="mt-8 flex flex-wrap gap-4">
           <a href="/repuestos/" class="btn-primario bg-white !text-marca-primario hover:bg-marca-niebla">
@@ -209,10 +209,10 @@ const iconosSector: Record<string, string> = {
     </div>
   </section>
 
-  {/* Galeria (avance) */}
+  {/* Galería (avance) */}
   <section class="seccion">
     <div class="contenedor">
-      <SectionHeading etiqueta="Galeria" titulo="Nuestro trabajo" icono="mdi:image-multiple-outline" centrado />
+      <SectionHeading etiqueta="Galería" titulo="Nuestro trabajo" icono="mdi:image-multiple-outline" centrado />
       <div class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
         {
           muestraGaleria.map((foto, i) => (
@@ -234,7 +234,7 @@ const iconosSector: Record<string, string> = {
         }
       </div>
       <div class="mt-10 text-center">
-        <a href="/galeria/" class="btn-secundario">Ver galeria completa</a>
+        <a href="/galeria/" class="btn-secundario">Ver galería completa</a>
       </div>
     </div>
   </section>
@@ -268,7 +268,7 @@ const iconosSector: Record<string, string> = {
           Hablar con nosotros
         </a>
         <a
-          href={waHref(`Hola ${site.nombreCorto}, quisiera mas informacion.`)}
+          href={waHref(`Hola ${site.nombreCorto}, quisiera más información.`)}
           target="_blank"
           rel="noopener"
           class="btn-primario whitespace-nowrap !bg-[#25D366] hover:!bg-[#1da851]"

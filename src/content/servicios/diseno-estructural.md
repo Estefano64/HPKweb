@@ -1,16 +1,16 @@
 ---
 titulo: Diseño estructural
 resalte: estructural
-resumen: Diseño y calculo de estructuras metalicas industriales y mineras con analisis por elementos finitos (FEA), memorias de calculo y planos de fabricacion.
+resumen: Diseño y cálculo de estructuras metálicas industriales y mineras con análisis por elementos finitos (FEA), memorias de cálculo y planos de fabricación.
 items:
-  - Diseño y calculo de estructuras metalicas industriales y mineras.
-  - Analisis estructural estatico y dinamico mediante elementos finitos (FEA).
-  - Diseño y verificacion de uniones soldadas y empernadas segun normas (AISC, ASTM).
-  - Memorias de calculo y reportes de ingenieria.
-  - Modelado 3D y planos de fabricacion y detallamiento.
-  - Reforzamiento, rediseño y rehabilitacion de estructuras existentes.
+  - Diseño y cálculo de estructuras metálicas industriales y mineras.
+  - Análisis estructural estático y dinámico mediante elementos finitos (FEA).
+  - Diseño y verificación de uniones soldadas y empernadas según normas (AISC, ASTM).
+  - Memorias de cálculo y reportes de ingeniería.
+  - Modelado 3D y planos de fabricación y detallamiento.
+  - Reforzamiento, rediseño y rehabilitación de estructuras existentes.
 orden: 5
 destacado: true
 ---
 
-Ingenieria y diseño de estructuras metalicas industriales y mineras.
+Ingeniería y diseño de estructuras metálicas industriales y mineras.

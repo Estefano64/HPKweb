@@ -16,7 +16,7 @@ interface Props {
 const { categoria } = Astro.props;
 
 const imagen = imagenRepuesto(categoria.id);
-const mensaje = `Hola ${site.nombreCorto}, quisiera cotizar repuestos de la linea "${categoria.titulo}". Detalle: `;
+const mensaje = `Hola ${site.nombreCorto}, quisiera cotizar repuestos de la línea "${categoria.titulo}". Detalle: `;
 ---
 
 <article class="flex h-full flex-col rounded-xl border border-marca-borde bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
