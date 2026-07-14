@@ -207,34 +207,4 @@ const iconosPilares = ['mdi:shield-check-outline', 'mdi:handshake-outline'];
     </div>
   </section>
 
-  {/* Llamado de cierre */}
-  <section class="relative overflow-hidden bg-marca-primario">
-    <Icon
-      name="mdi:cog"
-      class="animar-giro pointer-events-none absolute -left-16 -bottom-20 h-72 w-72 text-white/5"
-    />
-    <Icon
-      name="mdi:cog"
-      class="animar-giro-inverso pointer-events-none absolute -right-10 -top-16 h-48 w-48 text-white/5"
-    />
-    <div class="contenedor relative flex flex-col items-center gap-6 py-16 text-center" data-reveal>
-      <h2 class="max-w-2xl text-3xl font-bold text-white">
-        Trabajemos juntos en el mantenimiento de sus equipos
-      </h2>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="/contacto/" class="btn-primario bg-white !text-marca-primario hover:bg-marca-niebla">
-          Hablar con nosotros
-        </a>
-        <a
-          href={waHref(`Hola ${site.nombreCorto}, quisiera más información.`)}
-          target="_blank"
-          rel="noopener"
-          class="btn-primario whitespace-nowrap !bg-[#25D366] hover:!bg-[#1da851]"
-        >
-          <IconoWA size={18} />
-          Escribir por WhatsApp
-        </a>
-      </div>
-    </div>
-  </section>
 </BaseLayout>
