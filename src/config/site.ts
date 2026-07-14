@@ -47,7 +47,7 @@ export const site = {
   sigla: 'HP&K',
 
   /** Dominio de produccion (debe coincidir con `site` en astro.config.mjs) */
-  url: 'https://www.hpkinv.com',
+  url: 'https://hpkinv.com',
 
   /** Eslogan de marca (brochure 2026) */
   eslogan: 'Cumplimos lo que ofrecemos: repuestos originales y suministros certificados',
