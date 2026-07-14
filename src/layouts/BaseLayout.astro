@@ -108,11 +108,15 @@ const webSite = {
 const segmentos = Astro.url.pathname.split('/').filter(Boolean);
 const migas = [{ name: 'Inicio', url: `${site.url}/` }];
 let ruta = '';
-for (const seg of segmentos) {
+segmentos.forEach((seg, idx) => {
   ruta += `/${seg}`;
   const enlace = site.nav.find((n) => n.href === `${ruta}/`);
-  migas.push({ name: enlace?.texto ?? seg, url: new URL(`${ruta}/`, site.url).href });
-}
+  const esUltimo = idx === segmentos.length - 1;
+  // Etiqueta: nombre del menu si existe; si no, el titulo de la pagina (ultimo
+  // segmento) o el propio segmento de la ruta.
+  const name = enlace?.texto ?? (esUltimo ? titulo : seg);
+  migas.push({ name, url: new URL(`${ruta}/`, site.url).href });
+});
 const breadcrumb =
   migas.length > 1
     ? [

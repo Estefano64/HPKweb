@@ -1,0 +1,142 @@
+---
+/* ==========================================================================
+   PAGINA: PREGUNTAS FRECUENTES (FAQ)
+   Acordeon accesible (details/summary, sin JS) + datos estructurados FAQPage
+   para que Google pueda mostrar las preguntas como resultado enriquecido.
+   ========================================================================== */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import IconoWA from '../components/IconoWA.astro';
+import { Icon } from 'astro-icon/components';
+import { site, waHref } from '../config/site';
+
+// Preguntas y respuestas. El texto se usa tal cual en la pagina y en el
+// esquema FAQPage, asi que debe ser texto plano (sin enlaces ni HTML).
+const faqs: { pregunta: string; respuesta: string }[] = [
+  {
+    pregunta: '¿Que servicios ofrece HP&K Inversiones?',
+    respuesta:
+      'Ofrecemos reparacion de cilindros hidraulicos, maquinado in situ y barrenado, overhaul de componentes, reparacion de mandos y frenos, diseno y reparacion estructural, y fabricacion de piezas en acero, aluminio y bronce para maquinaria pesada y flota auxiliar.',
+  },
+  {
+    pregunta: '¿Que marcas de maquinaria atienden?',
+    respuesta:
+      'Trabajamos con repuestos y componentes originales para marcas lideres como CAT y Komatsu, ademas de la fabricacion y suministro de piezas a pedido para distintos equipos moviles y de flota auxiliar.',
+  },
+  {
+    pregunta: '¿A que sectores e industrias atienden?',
+    respuesta: `Atendemos principalmente a los sectores de ${site.sectores.join(', ')}, desde nuestra sede en Arequipa y en faena segun las necesidades de cada cliente.`,
+  },
+  {
+    pregunta: '¿Los repuestos son originales?',
+    respuesta:
+      'Si. Trabajamos con repuestos originales y suministros certificados, con control de calidad verificable, para asegurar la disponibilidad y confiabilidad de sus equipos.',
+  },
+  {
+    pregunta: '¿Como puedo solicitar una cotizacion?',
+    respuesta: `Puede escribirnos por WhatsApp al ${site.whatsapp}, enviarnos un correo a ${site.email} o completar el formulario de la pagina de contacto. Le responderemos con la informacion y el tiempo estimado tras evaluar su requerimiento.`,
+  },
+  {
+    pregunta: '¿Realizan trabajos en sitio (in situ)?',
+    respuesta:
+      'Si. Contamos con maquinado in situ y barrenado con equipos portatiles, lo que permite intervenir componentes directamente en la ubicacion del equipo cuando su traslado no es viable.',
+  },
+  {
+    pregunta: '¿Cuentan con ensayos y control de calidad?',
+    respuesta:
+      'Realizamos ensayos no destructivos (NDT), ultrasonido y escaneo 3D con tecnologia alemana, ademas de pruebas de funcionamiento, para garantizar la calidad y la vida util de cada componente reparado.',
+  },
+  {
+    pregunta: '¿Cual es el horario y la ubicacion de atencion?',
+    respuesta: `Brindamos ${site.horario.toLowerCase()}. Nuestra sede esta en ${site.empresa.direccionLegal}.`,
+  },
+];
+
+// Datos estructurados FAQPage (Schema.org) -> se anaden al @graph del layout.
+const esquemaFaq = [
+  {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.pregunta,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.respuesta,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  titulo="Preguntas frecuentes"
+  descripcion="Respuestas a las preguntas mas comunes sobre los servicios de reparacion, repuestos originales, marcas atendidas, cotizaciones y cobertura de HP&K Inversiones en Arequipa."
+  palabrasClave={['preguntas frecuentes', 'reparacion maquinaria pesada Arequipa', 'repuestos originales CAT Komatsu', 'cotizacion repuestos mineria']}
+  esquemas={esquemaFaq}
+>
+  {/* Encabezado */}
+  <section class="border-b border-marca-borde bg-marca-niebla">
+    <div class="contenedor py-16 md:py-20">
+      <SectionHeading
+        etiqueta="Preguntas frecuentes"
+        titulo="Resolvemos tus dudas mas comunes"
+        descripcion="Todo lo que necesitas saber sobre nuestros servicios, repuestos, cobertura y como trabajar con nosotros. Si no encuentras tu respuesta, escribenos y con gusto te atendemos."
+        icono="mdi:help-circle-outline"
+      />
+    </div>
+  </section>
+
+  {/* Lista de preguntas (acordeon) */}
+  <section class="seccion">
+    <div class="contenedor max-w-3xl">
+      <div class="space-y-4">
+        {
+          faqs.map((faq, i) => (
+            <details
+              class="group rounded-2xl border border-marca-borde bg-white p-1 shadow-sm transition-colors open:border-marca-acento"
+              open={i === 0}
+              data-reveal
+            >
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 rounded-xl px-5 py-4 font-semibold text-marca-primario">
+                <span>{faq.pregunta}</span>
+                <Icon
+                  name="mdi:chevron-down"
+                  class="h-6 w-6 shrink-0 text-marca-acento transition-transform duration-200 group-open:rotate-180"
+                />
+              </summary>
+              <div class="px-5 pb-5 pt-1 leading-relaxed text-marca-secundario">
+                {faq.respuesta}
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* CTA de cierre */}
+  <section class="bg-marca-primario">
+    <div class="contenedor flex flex-col items-center gap-6 py-16 text-center">
+      <h2 class="max-w-2xl text-3xl font-bold text-white">
+        ¿No encontraste lo que buscabas?
+      </h2>
+      <p class="max-w-xl text-white/75">
+        Nuestro equipo te responde y cotiza tu requerimiento. Atencion las 24 horas, los 365 dias del anio.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href={waHref(`Hola ${site.nombreCorto}, tengo una consulta.`)}
+          target="_blank"
+          rel="noopener"
+          class="btn-primario whitespace-nowrap !bg-[#25D366] hover:!bg-[#1da851]"
+        >
+          <IconoWA size={18} />
+          Escribirnos por WhatsApp
+        </a>
+        <a href="/contacto/" class="btn-secundario border-white/40 !text-white hover:bg-white/10">
+          Ir a contacto
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
