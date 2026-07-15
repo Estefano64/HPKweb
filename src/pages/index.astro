@@ -52,6 +52,22 @@ const iconosPilares = ['mdi:shield-check-outline', 'mdi:handshake-outline'];
   {/* Franja de credibilidad */}
   <StatsBand cifras={cifras} />
 
+  {/* Clientes (logos) */}
+  <section class="seccion bg-marca-niebla">
+    <div class="contenedor">
+      <SectionHeading
+        etiqueta="Clientes"
+        titulo="Empresas que confian en nosotros"
+        descripcion="Descubra por que las mineras eligen nuestra excelencia en servicio y soluciones."
+        icono="mdi:handshake-outline"
+        centrado
+      />
+      <div class="mt-12" data-reveal>
+        <ClientesMarquee />
+      </div>
+    </div>
+  </section>
+
   {/* Video de presentacion de la empresa */}
   <section class="seccion">
     <div class="contenedor">
@@ -150,22 +166,6 @@ const iconosPilares = ['mdi:shield-check-outline', 'mdi:handshake-outline'];
       </div>
       <div class="mt-8 text-center">
         <a href="/servicios/" class="btn-primario">Ver todos los servicios</a>
-      </div>
-    </div>
-  </section>
-
-  {/* Clientes */}
-  <section class="seccion bg-marca-niebla">
-    <div class="contenedor">
-      <SectionHeading
-        etiqueta="Clientes"
-        titulo="Empresas que confian en nosotros"
-        descripcion="Descubra por que las mineras eligen nuestra excelencia en servicio y soluciones."
-        icono="mdi:handshake-outline"
-        centrado
-      />
-      <div class="mt-12" data-reveal>
-        <ClientesMarquee />
       </div>
     </div>
   </section>
